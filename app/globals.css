@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
+/* Custom Theme Variables */
+@theme {
+  /* Colors */
+  --color-background: #09090b;
+  --color-surface: #18181b;
+  --color-border: #27272a;
+  --color-text-primary: #fafafa;
+  --color-text-muted: #a1a1aa;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-violet: #8b5cf6;
+  --color-accent-emerald: #10b981;
+
+  /* Font families */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.5s ease-out forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+}
+
+/* CSS Variables for direct use */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #09090b;
+  --bg-surface: #18181b;
+  --border: #27272a;
+  --text-primary: #fafafa;
+  --text-muted: #a1a1aa;
+  --accent-cyan: #06b6d4;
+  --accent-violet: #8b5cf6;
+  --accent-emerald: #10b981;
+  --glow-cyan: rgba(6, 182, 212, 0.4);
+  --glow-violet: rgba(139, 92, 246, 0.3);
+  --glow-emerald: rgba(16, 185, 129, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Keyframes */
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Base styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glow utilities */
+.glow-cyan {
+  box-shadow: 0 0 20px var(--glow-cyan), 0 0 40px rgba(6, 182, 212, 0.2);
+}
+
+.glow-violet {
+  box-shadow: 0 0 20px var(--glow-violet), 0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 20px var(--glow-emerald), 0 0 40px rgba(16, 185, 129, 0.2);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 20px var(--glow-cyan);
+}
+
+.text-glow-violet {
+  text-shadow: 0 0 20px var(--glow-violet);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
