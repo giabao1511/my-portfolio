@@ -1,11 +1,11 @@
 "use client";
 
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { Mail, Heart, Code2, Network } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 const socialLinks = [
-  { name: "GitHub", url: "https://github.com/giabao4123", icon: Github },
-  { name: "LinkedIn", url: "https://linkedin.com/in/giabao4123", icon: Linkedin },
+  { name: "GitHub", url: "https://github.com/giabao4123", icon: Code2 },
+  { name: "LinkedIn", url: "https://linkedin.com/in/giabao4123", icon: Network },
   { name: "Email", url: "mailto:giabao712411@gmail.com", icon: Mail },
 ];
 

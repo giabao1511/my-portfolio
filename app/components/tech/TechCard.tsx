@@ -23,7 +23,7 @@ interface TechCardProps {
   index: number;
 }
 
-const iconMap: Record<string, React.ElementType> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Code,
   Globe,
   Server,
