@@ -2,8 +2,8 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { cn } from "@/lib/utils";
-import { STATS } from "@/lib/constants";
+import { cn } from "../../lib/utils";
+import { STATS } from "../../lib/constants";
 
 const colorClasses = {
   cyan: "border-accent-cyan/30 hover:border-accent-cyan/60 hover:shadow-glow-cyan",

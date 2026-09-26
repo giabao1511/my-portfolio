@@ -6,7 +6,7 @@ import { HeroTypography } from "./HeroTypography";
 import { MagneticButton } from "./MagneticButton";
 import { BentoStats } from "./BentoStats";
 import { ScrollIndicator } from "./ScrollIndicator";
-import { PROFILE } from "@/lib/constants";
+import { PROFILE } from "../../lib/constants";
 
 // Dynamic import for 3D canvas (no SSR)
 const Hero3DCanvas = dynamic(

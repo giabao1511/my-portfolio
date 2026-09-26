@@ -42,6 +42,15 @@ function ParticleSphere({ mousePosition }: ParticleSphereProps) {
     return { positions, colors, count };
   }, []);
 
+  // Create buffer attributes with useMemo
+  const positionAttribute = useMemo(() => {
+    return new THREE.BufferAttribute(particles.positions, 3);
+  }, [particles.positions]);
+
+  const colorAttribute = useMemo(() => {
+    return new THREE.BufferAttribute(particles.colors, 3);
+  }, [particles.colors]);
+
   useFrame((state, delta) => {
     if (!meshRef.current) return;
 
@@ -52,7 +61,7 @@ function ParticleSphere({ mousePosition }: ParticleSphereProps) {
     mouseTarget.current.x += (mousePosition.x * viewport.width * 0.3 - mouseTarget.current.x) * 0.05;
     mouseTarget.current.y += (mousePosition.y * viewport.height * 0.3 - mouseTarget.current.y) * 0.05;
 
-    // Rotate based on time and mouse
+    // rotate based on time and mouse
     meshRef.current.rotation.y += cappedDelta * 0.2;
     meshRef.current.rotation.x = mouseTarget.current.y * 0.3;
     meshRef.current.rotation.z = mouseTarget.current.x * 0.1;
@@ -62,18 +71,8 @@ function ParticleSphere({ mousePosition }: ParticleSphereProps) {
     <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
       <points ref={meshRef}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={particles.count}
-            array={particles.positions}
-            itemSize={3}
-          />
-          <bufferAttribute
-            attach="attributes-color"
-            count={particles.count}
-            array={particles.colors}
-            itemSize={3}
-          />
+          <primitive attach="attributes-position" object={positionAttribute} />
+          <primitive attach="attributes-color" object={colorAttribute} />
         </bufferGeometry>
         <pointsMaterial
           size={0.02}
