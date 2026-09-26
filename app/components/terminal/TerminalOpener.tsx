@@ -2,16 +2,18 @@
 
 import { Terminal as TerminalIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { useTerminal } from "./TerminalProvider";
 
 interface TerminalOpenerProps {
-  onClick: () => void;
   className?: string;
 }
 
-export function TerminalOpener({ onClick, className }: TerminalOpenerProps) {
+export function TerminalOpener({ className }: TerminalOpenerProps) {
+  const { openTerminal } = useTerminal();
+
   return (
     <button
-      onClick={onClick}
+      onClick={openTerminal}
       className={cn(
         "flex items-center gap-2 px-6 py-3 rounded-full",
         "border border-accent-violet text-accent-violet",

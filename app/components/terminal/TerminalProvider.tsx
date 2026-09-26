@@ -1,11 +1,22 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import { Terminal } from "./Terminal";
 
-export function TerminalProvider({ children }: { children: React.ReactNode }) {
+interface TerminalContextValue {
+  openTerminal: () => void;
+}
+
+const TerminalContext = createContext<TerminalContextValue>({ openTerminal: () => {} });
+
+export function useTerminal() {
+  return useContext(TerminalContext);
+}
+
+export function TerminalProvider({ children }: { children: ReactNode }) {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
+  const openTerminal = useCallback(() => setIsTerminalOpen(true), []);
   const closeTerminal = useCallback(() => setIsTerminalOpen(false), []);
   const toggleTerminal = useCallback(
     () => setIsTerminalOpen((prev) => !prev),
@@ -39,9 +50,9 @@ export function TerminalProvider({ children }: { children: React.ReactNode }) {
   }, [isTerminalOpen, toggleTerminal, closeTerminal]);
 
   return (
-    <>
+    <TerminalContext.Provider value={{ openTerminal }}>
       {children}
       <Terminal isOpen={isTerminalOpen} onClose={closeTerminal} />
-    </>
+    </TerminalContext.Provider>
   );
 }
