@@ -56,3 +56,50 @@ export const PROFILE = {
     secondary: "Get In Touch",
   },
 } as const;
+
+export const EXPERIENCE = [
+  {
+    id: "keyloop",
+    company: "Keyloop",
+    period: "Jan 2025 – Present",
+    role: "Software Engineer",
+    color: "cyan" as const,
+    achievements: [
+      "Saleshub multi-tenant automotive SaaS platform (serving BMW, VW, Honda)",
+      "Real-time Financial/Insurance calculation engine with sub-50ms client-side latency",
+      "Automated E2E & API regression suites using Playwright integrated into GitLab CI/CD",
+    ],
+  },
+  {
+    id: "vongxanh",
+    company: "Vongxanh / Blue Circle",
+    period: "Sep 2023 – Jan 2025",
+    role: "Fullstack Engineer",
+    color: "emerald" as const,
+    achievements: [
+      "Modular Nest.js RESTful APIs & high-concurrency marathon registration engines",
+      "Active.vn luxury e-commerce & real-time analytics CMS using Next.js & Recharts",
+    ],
+  },
+  {
+    id: "mangoads",
+    company: "MangoAds",
+    period: "Jan 2023 – Sep 2023",
+    role: "Frontend Developer",
+    color: "violet" as const,
+    achievements: [
+      "Digital banking portals for Tier-1 institutions (Cake by VPBank, Eximbank)",
+      "Achieved 95+ Lighthouse performance scores",
+    ],
+  },
+  {
+    id: "keppelland",
+    company: "Keppel Land",
+    period: "Sep 2022 – Dec 2022",
+    role: "Software Developer Intern",
+    color: "cyan" as const,
+    achievements: [
+      "Reward+ Loyalty CMS dashboards for Saigon Centre Mall tenants",
+    ],
+  },
+] as const;
