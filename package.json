@@ -15,7 +15,7 @@
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
     "@react-three/postprocessing": "^2.16.0",
-    "@studio-freight/lenis": "^1.0.42",
+    "lenis": "^1.1.14",
     "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "framer-motion": "^13.4.4",

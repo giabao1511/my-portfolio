@@ -7,9 +7,10 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,22 +41,27 @@ export function LenisProvider({ children }: { children: ReactNode }) {
 
     setLenis(lenisInstance);
 
-    // Sync Lenis RAF with GSAP ticker
+    // Sync with GSAP ScrollTrigger
+    lenisInstance.on("scroll", ScrollTrigger.update);
+
+    // RAF loop with GSAP ticker
+    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.add((time) => {
+      lenisInstance.raf(time * 1000);
+    });
+
+    // Also track scroll position for consumers
     lenisInstance.on("scroll", ({ scroll }: { scroll: number }) => {
       setScrollY(scroll);
     });
-
-    function raf(time: number) {
-      lenisInstance.raf(time);
-      requestAnimationFrame(raf);
-    }
-    const rafId = requestAnimationFrame(raf);
 
     // Refresh ScrollTrigger after init
     ScrollTrigger.refresh();
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove((time) => {
+        lenisInstance.raf(time * 1000);
+      });
       lenisInstance.destroy();
       setLenis(null);
     };
