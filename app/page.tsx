@@ -1,5 +1,6 @@
 import { HeroSection } from "./components/hero/HeroSection";
-import { MagneticCursor } from "./components/ui/MagneticCursor";
+import { Cursor } from "./components/effects/Cursor";
+import { Scene } from "./components/canvas/Scene";
 import { ExperienceSection } from "./components/experience/ExperienceSection";
 import { TechArsenalSection } from "./components/tech/TechArsenalSection";
 import { AboutSection } from "./components/about/AboutSection";
@@ -10,8 +11,9 @@ import { TerminalProvider } from "./components/terminal";
 export default function Home() {
   return (
     <TerminalProvider>
+      <Scene />
       <main>
-        <MagneticCursor />
+        <Cursor />
         <HeroSection />
         <ExperienceSection />
         <TechArsenalSection />
