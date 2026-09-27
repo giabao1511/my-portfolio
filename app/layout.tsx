@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { AnalyticsProvider } from "./components/analytics";
 import { LenisProvider } from "./components/scroll/LenisProvider";
+import { AudioProvider } from "./components/audio/AudioContext";
+import { SoundToggle } from "./components/audio/SoundToggle";
 import "./globals.css";
 
 const inter = Inter({
@@ -73,9 +75,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased">
-        <LenisProvider>
-          {children}
-        </LenisProvider>
+        <AudioProvider>
+          <LenisProvider>
+            {children}
+          </LenisProvider>
+          <SoundToggle />
+        </AudioProvider>
         <AnalyticsProvider />
       </body>
     </html>

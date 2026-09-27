@@ -126,4 +126,23 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Canvas 3D scene - disable heavy effects */
+  .fixed.inset-0.z-0 canvas {
+    display: none;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+  }
+}
+
+/* Sound wave animation for audio toggle */
+@keyframes soundWave {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
 }
