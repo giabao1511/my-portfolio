@@ -1,88 +1,71 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-interface ParticleData {
-  position: THREE.Vector3;
+interface ParticleConfig {
   scale: number;
   speed: number;
   phase: number;
 }
 
-export function FloatingParticles({ count = 800 }: { count?: number }) {
-  const pointsRef = useRef<THREE.Points>(null);
-  const particlesData = useRef<ParticleData[]>([]);
+// Seeded random number generator for deterministic particle positions
+function seededRandom(seed: number): () => number {
+  return function() {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+}
 
-  const { positions, sizes, phases } = useMemo(() => {
+export function FloatingParticles({ count = 800 }: { count?: number }) {
+  // Generate all data once with useMemo
+  const { geometry, configs, sizeAttr } = useMemo(() => {
+    const random = seededRandom(42);
+    const particleConfigs: ParticleConfig[] = [];
     const pos = new Float32Array(count * 3);
-    const sizes = new Float32Array(count);
-    const phases = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      // Random position in a sphere
-      const radius = 8 + Math.random() * 4;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
+      // Store config for animation
+      particleConfigs.push({
+        scale: random() * 0.03 + 0.01,
+        speed: 0.1 + random() * 0.2,
+        phase: random() * Math.PI * 2,
+      });
+
+      // Generate sphere position
+      const radius = 8 + random() * 4;
+      const theta = random() * Math.PI * 2;
+      const phi = Math.acos(2 * random() - 1);
 
       pos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
       pos[i * 3 + 2] = radius * Math.cos(phi);
-
-      sizes[i] = Math.random() * 0.03 + 0.01;
-      phases[i] = Math.random() * Math.PI * 2;
-
-      particlesData.current.push({
-        position: new THREE.Vector3(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]),
-        scale: sizes[i],
-        speed: 0.1 + Math.random() * 0.2,
-        phase: phases[i],
-      });
     }
 
-    return { positions: pos, sizes, phases };
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+
+    const sizeAttr = new THREE.BufferAttribute(new Float32Array(count), 1);
+    geo.setAttribute("aSize", sizeAttr);
+
+    return { geometry: geo, configs: particleConfigs, sizeAttr };
   }, [count]);
 
-  const positionAttribute = useMemo(
-    () => new THREE.BufferAttribute(positions, 3),
-    [positions]
-  );
-
-  const sizeAttribute = useMemo(
-    () => new THREE.BufferAttribute(new Float32Array(count), 1),
-    [count]
-  );
-
   useFrame((state) => {
-    if (!pointsRef.current) return;
-
     const time = state.clock.elapsedTime;
 
-    // Slowly rotate particles
-    pointsRef.current.rotation.y = time * 0.02;
-    pointsRef.current.rotation.x = Math.sin(time * 0.01) * 0.1;
-
-    // Twinkle effect - modulate size
-    const sizeAttr = pointsRef.current.geometry.attributes.aSize as THREE.BufferAttribute;
-    if (sizeAttr) {
-      for (let i = 0; i < count; i++) {
-        const p = particlesData.current[i];
-        if (p) {
-          const twinkle = Math.sin(time * p.speed + p.phase) * 0.5 + 0.5;
-          sizeAttr.array[i] = p.scale * (0.5 + twinkle * 0.5);
-        }
-      }
-      sizeAttr.needsUpdate = true;
+    for (let i = 0; i < count; i++) {
+      const config = configs[i];
+      const twinkle = Math.sin(time * config.speed + config.phase) * 0.5 + 0.5;
+      sizeAttr.array[i] = config.scale * (0.5 + twinkle * 0.5);
     }
+    sizeAttr.needsUpdate = true;
   });
 
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <primitive attach="attributes-position" object={positionAttribute} />
-        <primitive attach="attributes-aSize" object={sizeAttribute} />
-      </bufferGeometry>
+    <points>
+      <primitive object={geometry} />
       <pointsMaterial
         size={0.04}
         color="#06b6d4"

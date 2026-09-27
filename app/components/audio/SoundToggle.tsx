@@ -4,7 +4,7 @@ import { useAudio } from "./AudioContext";
 import { cn } from "../../lib/utils";
 
 export function SoundToggle() {
-  const { isEnabled, isMuted, toggle } = useAudio();
+  const { isMuted, toggle } = useAudio();
 
   return (
     <button
@@ -43,9 +43,7 @@ export function SoundToggle() {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className={cn(
-                "w-0.5 rounded-full animate-[soundWave_0.5s_ease-in-out_infinite"
-              )}
+              className="w-0.5 rounded-full bg-accent-cyan animate-[soundWave_0.5s_ease-in-out_infinite]"
               style={{
                 height: `${6 + i * 3}px`,
                 animationDelay: `${i * 0.1}s`,

@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -14,12 +17,12 @@
     "@react-three/postprocessing": "^2.16.0",
     "@studio-freight/lenis": "^1.0.42",
     "@vercel/analytics": "^2.0.1",
-    "gsap": "^3.12.5",
-    "postprocessing": "^6.36.3",
     "clsx": "^2.1.1",
     "framer-motion": "^13.4.4",
+    "gsap": "^3.12.5",
     "lucide-react": "^1.48.0",
     "next": "16.3.6",
+    "postprocessing": "^6.36.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwind-merge": "^3.7.0",
@@ -33,6 +36,8 @@
     "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "prettier": "^3.9.9",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
