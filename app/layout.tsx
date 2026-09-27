@@ -15,9 +15,49 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chau Gia Bao | Software Engineer",
+  title: {
+    default: "Chau Gia Bao | Software Engineer",
+    template: "%s | Chau Gia Bao",
+  },
   description:
-    "Software Engineer specializing in high-performance web platforms, TypeScript ecosystem, Next.js, and distributed systems.",
+    "Software Engineer specializing in high-performance web platforms, TypeScript ecosystem, Next.js, and distributed systems. 4+ years experience in B2B SaaS, E-Commerce, and FinTech.",
+  keywords: [
+    "Software Engineer",
+    "Full Stack Developer",
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Vietnam",
+    "Ho Chi Minh City",
+  ],
+  authors: [{ name: "Chau Gia Bao" }],
+  creator: "Chau Gia Bao",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://giabao.dev",
+    siteName: "Chau Gia Bao Portfolio",
+    title: "Chau Gia Bao | Software Engineer",
+    description:
+      "Software Engineer specializing in high-performance web platforms, TypeScript ecosystem, Next.js, and distributed systems.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chau Gia Bao | Software Engineer",
+    description:
+      "Software Engineer specializing in high-performance web platforms.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/favicon.ico",
   },
