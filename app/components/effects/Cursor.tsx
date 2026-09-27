@@ -44,7 +44,9 @@ export function Cursor() {
       lastMoveTime.current = now;
 
       // Add trail on fast movement
-      const speed = Math.sqrt(velocity.current.x ** 2 + velocity.current.y ** 2);
+      const speed = Math.sqrt(
+        velocity.current.x ** 2 + velocity.current.y ** 2,
+      );
       if (speed > 0.5) {
         addTrailPoint(e.clientX, e.clientY);
       }
@@ -105,7 +107,7 @@ export function Cursor() {
           if (dots[i]) {
             dots[i].setAttribute(
               "style",
-              `transform: translate(${point.x}px, ${point.y}px) translate(-50%, -50%) scale(${point.opacity}); opacity: ${point.opacity}`
+              `transform: translate(${point.x}px, ${point.y}px) translate(-50%, -50%) scale(${point.opacity}); opacity: ${point.opacity}`,
             );
           }
         });
@@ -160,10 +162,12 @@ export function Cursor() {
           "bg-white",
           !isHovering && !isClicking && "w-3 h-3",
           // Hovering
-          isHovering && !isClicking && "w-12 h-12 border-2 border-white bg-transparent",
+          isHovering &&
+            !isClicking &&
+            "w-12 h-12 border-2 border-white bg-transparent",
           // Clicking
           isClicking && "w-8 h-8 scale-75",
-          "hidden md:block"
+          "hidden lg:block",
         )}
       />
     </>

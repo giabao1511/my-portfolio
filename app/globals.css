@@ -50,7 +50,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -59,7 +60,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.4;
   }
   50% {
@@ -78,15 +80,21 @@ body {
 
 /* Glow utilities */
 .glow-cyan {
-  box-shadow: 0 0 20px var(--glow-cyan), 0 0 40px rgba(6, 182, 212, 0.2);
+  box-shadow:
+    0 0 20px var(--glow-cyan),
+    0 0 40px rgba(6, 182, 212, 0.2);
 }
 
 .glow-violet {
-  box-shadow: 0 0 20px var(--glow-violet), 0 0 40px rgba(139, 92, 246, 0.2);
+  box-shadow:
+    0 0 20px var(--glow-violet),
+    0 0 40px rgba(139, 92, 246, 0.2);
 }
 
 .glow-emerald {
-  box-shadow: 0 0 20px var(--glow-emerald), 0 0 40px rgba(16, 185, 129, 0.2);
+  box-shadow:
+    0 0 20px var(--glow-emerald),
+    0 0 40px rgba(16, 185, 129, 0.2);
 }
 
 .text-glow-cyan {
@@ -143,6 +151,19 @@ body {
 
 /* Sound wave animation for audio toggle */
 @keyframes soundWave {
-  0%, 100% { transform: scaleY(0.5); }
-  50% { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Touch device cursor hiding */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot,
+  [data-cursor] {
+    display: none !important;
+  }
 }
