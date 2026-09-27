@@ -135,6 +135,7 @@ export function Cursor() {
       {/* Trail container */}
       <div
         ref={trailRef}
+        data-cursor
         className="pointer-events-none fixed inset-0 z-[9998]"
         aria-hidden="true"
       >
@@ -154,6 +155,7 @@ export function Cursor() {
       {/* Main cursor */}
       <div
         ref={cursorRef}
+        data-cursor
         className={cn(
           "pointer-events-none fixed top-0 left-0 z-[9999] rounded-full",
           "mix-blend-difference transition-all duration-150",

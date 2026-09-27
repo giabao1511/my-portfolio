@@ -169,8 +169,8 @@ body {
 
 /* Touch device cursor hiding */
 @media (hover: none) and (pointer: coarse) {
-  .cursor-dot,
-  [data-cursor] {
+  [data-cursor],
+  [data-trail-dot] {
     display: none !important;
   }
 }
