@@ -2,11 +2,12 @@
 
 import { motion } from "framer-motion";
 import { ExperienceTimeline } from "./ExperienceTimeline";
+import { HorizontalSection } from "../scroll/HorizontalSection";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="relative py-24 md:py-32">
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
+    <section id="experience" className="relative">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 pt-24 md:pt-32">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -22,10 +23,19 @@ export function ExperienceSection() {
             Building impactful products across industries
           </p>
         </motion.div>
-
-        {/* Timeline */}
-        <ExperienceTimeline />
       </div>
+
+      {/* Horizontal scroll container */}
+      <HorizontalSection className="pb-24 md:pb-32">
+        <div className="w-[calc(50vw-2rem)] flex-shrink-0 md:w-[400px]">
+          <div className="h-full flex items-center">
+            <p className="text-zinc-500 text-sm uppercase tracking-wider">
+              Scroll to explore →
+            </p>
+          </div>
+        </div>
+        <ExperienceTimeline />
+      </HorizontalSection>
     </section>
   );
 }
