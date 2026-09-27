@@ -124,7 +124,7 @@ body {
   background: var(--text-muted);
 }
 
-/* Reduced motion */
+/* Enhanced reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -135,9 +135,16 @@ body {
     scroll-behavior: auto !important;
   }
 
-  /* Canvas 3D scene - disable heavy effects */
-  .fixed.inset-0.z-0 canvas {
+  /* Canvas 3D scene - disable entirely */
+  .fixed.inset-0.z-0 {
     display: none;
+  }
+
+  /* Remove backdrop effects */
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: none !important;
   }
 
   body::before {
