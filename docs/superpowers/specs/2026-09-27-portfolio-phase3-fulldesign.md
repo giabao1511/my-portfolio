@@ -5,6 +5,7 @@
 **Goal:** Complete the portfolio with skills showcase, personal section, working contact form, and footer.
 
 **Success criteria:**
+
 - Tech Arsenal cards animate on scroll with 3D tilt effect
 - About section shows personal background
 - Contact form validates and shows success state
@@ -17,6 +18,7 @@
 ## Design System (Phase 1 carryover)
 
 ### Colors
+
 - Background: #09090b (zinc-950)
 - Surface: #18181b (zinc-900)
 - Accent Cyan: #06b6d4
@@ -25,6 +27,7 @@
 - Glow effects from Phase 1
 
 ### Typography
+
 - Display: Inter
 - Mono: JetBrains Mono (code elements)
 
@@ -182,11 +185,7 @@ Desktop (≥1024px):
 const ABOUT = {
   name: "Chau Gia Bao",
   title: "Software Engineer",
-  values: [
-    "Clean Architecture",
-    "Type-Safe Code",
-    "Performance First",
-  ],
+  values: ["Clean Architecture", "Type-Safe Code", "Performance First"],
   bio: "I believe in clean architecture, type-safe code, and performance-first engineering. Beyond code, I'm exploring the startup culture in Vietnam and building things that matter.",
   interests: [
     "Open Source",
@@ -247,12 +246,12 @@ app/components/
 
 ### Form Fields
 
-| Field | Type | Validation | Required |
-|-------|------|-----------|----------|
-| Name | text | min 2 chars | Yes |
-| Email | email | valid email format | Yes |
-| Subject | text | min 3 chars | No |
-| Message | textarea | min 10 chars | Yes |
+| Field   | Type     | Validation         | Required |
+| ------- | -------- | ------------------ | -------- |
+| Name    | text     | min 2 chars        | Yes      |
+| Email   | email    | valid email format | Yes      |
+| Subject | text     | min 3 chars        | No       |
+| Message | textarea | min 10 chars       | Yes      |
 
 ### States
 
@@ -353,6 +352,7 @@ app/components/
 ## Dependencies
 
 No new dependencies required — using existing:
+
 - Framer Motion (animations, tilt)
 - Lucide React (icons)
 - clsx + tailwind-merge (classes)

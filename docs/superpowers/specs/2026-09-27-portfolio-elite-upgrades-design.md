@@ -14,9 +14,11 @@ Transform the portfolio into a production-grade showcase with 5 critical upgrade
 ## 1. SystemArchitecture Component
 
 ### Purpose
+
 Interactive SVG-based system architecture visualization demonstrating microservices expertise.
 
 ### Design
+
 - **Placement:** Standalone section below BentoStats, with generous vertical padding
 - **Layout:** 5 horizontally-connected nodes with animated SVG connector lines
 - **Nodes:**
@@ -32,6 +34,7 @@ Interactive SVG-based system architecture visualization demonstrating microservi
 - **Framer Motion:** Spring animations for node interactions, staggered entry animations
 
 ### File
+
 `app/components/architecture/SystemArchitecture.tsx`
 
 ---
@@ -39,9 +42,11 @@ Interactive SVG-based system architecture visualization demonstrating microservi
 ## 2. EngineeringHUD Component
 
 ### Purpose
+
 Real-time engineering metrics panel integrated as Bento cards.
 
 ### Design
+
 - **Placement:** Bento grid section, inline with stats
 - **Metrics displayed:**
   - Client Latency: < 50ms (live counter)
@@ -55,6 +60,7 @@ Real-time engineering metrics panel integrated as Bento cards.
   - Subtle gradient borders
 
 ### File
+
 `app/components/hud/EngineeringHUD.tsx`
 
 ---
@@ -62,9 +68,11 @@ Real-time engineering metrics panel integrated as Bento cards.
 ## 3. Three.js Performance Optimization
 
 ### Purpose
+
 Smart render loop management to prevent battery drain and frame drops.
 
 ### Implementation
+
 1. **Visibility Detection:**
    - `IntersectionObserver` to pause when canvas scrolls out of view
    - `document.visibilitychange` to pause when tab loses focus
@@ -78,6 +86,7 @@ Smart render loop management to prevent battery drain and frame drops.
    - Unmounts gracefully once textures/shaders compiled
 
 ### Files
+
 - `app/components/canvas/Scene.tsx` — Add visibility detection
 - `app/components/canvas/PerformanceOptimizer.tsx` — Quality detection hook
 - `app/components/canvas/Preloader.tsx` — Bootloader UI
@@ -87,9 +96,11 @@ Smart render loop management to prevent battery drain and frame drops.
 ## 4. RecruiterMode & Mobile Fallbacks
 
 ### Purpose
+
 Accessibility and recruiter-friendly viewing mode.
 
 ### RecruiterMode Toggle
+
 - **UI:** Floating pill badge, bottom-right corner
 - **Icon:** Briefcase icon (Lucide)
 - **Label:** "Recruiter Mode" / "Interactive 3D" (toggles based on state)
@@ -101,14 +112,17 @@ Accessibility and recruiter-friendly viewing mode.
   - Shows prominent "Download CV" CTA
 
 ### Mobile/Touch Handling
+
 - Disable custom cursor on touch devices via CSS media query
 - Replace GSAP horizontal scroll with native swipe cards on mobile
 
 ### Accessibility
+
 - Respect `prefers-reduced-motion` for all Framer Motion/GSAP
 - Keyboard-navigable focus states
 
 ### Files
+
 - `app/contexts/RecruiterModeContext.tsx`
 - `app/hooks/useRecruiterMode.ts`
 - `app/components/ui/RecruiterModeToggle.tsx`
@@ -120,9 +134,11 @@ Accessibility and recruiter-friendly viewing mode.
 ## 5. Dynamic OG Image Generation
 
 ### Purpose
+
 Branded Open Graph preview image for social sharing.
 
 ### Implementation
+
 - Use `@vercel/og` (ImageResponse) in `app/opengraph-image.tsx`
 - Dark mode design with:
   - Name: "Chau Gia Bao"
@@ -132,6 +148,7 @@ Branded Open Graph preview image for social sharing.
 - Export as default from the file
 
 ### File
+
 `app/opengraph-image.tsx`
 
 ---
@@ -139,6 +156,7 @@ Branded Open Graph preview image for social sharing.
 ## Integration Points
 
 ### Updated Files
+
 - `app/page.tsx` — Add SystemArchitecture, EngineeringHUD, integrate RecruiterMode
 - `app/layout.tsx` — Wrap with RecruiterModeProvider, update metadata
 - `app/components/canvas/Scene.tsx` — Performance optimizations
@@ -146,6 +164,7 @@ Branded Open Graph preview image for social sharing.
 - `app/globals.css` — Mobile/touch fallbacks, reduced motion
 
 ### New Files
+
 1. `app/components/architecture/SystemArchitecture.tsx`
 2. `app/components/hud/EngineeringHUD.tsx`
 3. `app/components/canvas/PerformanceOptimizer.tsx`

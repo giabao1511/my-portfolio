@@ -14,17 +14,20 @@ const glowMap = {
   cyan: {
     border: "border-accent-cyan/30 hover:border-accent-cyan/60",
     shadow: "hover:shadow-glow-cyan",
-    spotlight: "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(6, 182, 212, 0.15) 0%, transparent 50%)",
+    spotlight:
+      "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(6, 182, 212, 0.15) 0%, transparent 50%)",
   },
   violet: {
     border: "border-accent-violet/30 hover:border-accent-violet/60",
     shadow: "hover:shadow-glow-violet",
-    spotlight: "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
+    spotlight:
+      "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
   },
   emerald: {
     border: "border-accent-emerald/30 hover:border-accent-emerald/60",
     shadow: "hover:shadow-glow-emerald",
-    spotlight: "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
+    spotlight:
+      "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
   },
 };
 
@@ -54,8 +57,10 @@ export function BentoCard({
     // Calculate tilt
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateY = ((e.clientX - rect.left - centerX) / centerX) * tiltStrength;
-    const rotateX = ((centerY - (e.clientY - rect.top)) / centerY) * tiltStrength;
+    const rotateY =
+      ((e.clientX - rect.left - centerX) / centerX) * tiltStrength;
+    const rotateX =
+      ((centerY - (e.clientY - rect.top)) / centerY) * tiltStrength;
 
     setTilt({ x: rotateX, y: rotateY });
   };
@@ -76,11 +81,13 @@ export function BentoCard({
         glow.border,
         glow.shadow,
         isHovered && "scale-[1.02]",
-        className
+        className,
       )}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
+        transition: isHovered
+          ? "transform 0.1s ease-out"
+          : "transform 0.5s ease-out",
         willChange: "transform",
       }}
       onMouseMove={handleMouseMove}
@@ -100,10 +107,10 @@ export function BentoCard({
       <div
         className={cn(
           "absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300",
-          "bg-gradient-to-br from-white/10 via-transparent to-transparent"
+          "bg-gradient-to-br from-white/10 via-transparent to-transparent",
         )}
         style={{
-          opacity: isHovered ? Math.abs(tilt.y) / tiltStrength * 0.3 : 0,
+          opacity: isHovered ? (Math.abs(tilt.y) / tiltStrength) * 0.3 : 0,
           transform: `translateX(${tilt.y * 0.5}px) translateY(${-tilt.x * 0.5}px)`,
         }}
       />

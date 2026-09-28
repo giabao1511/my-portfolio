@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const CHARS = "!@#$%^&*()_+-=[]{}|;':\",./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const CHARS =
+  "!@#$%^&*()_+-=[]{}|;':\",./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 interface UseTextScrambleOptions {
   duration?: number;
@@ -12,7 +13,7 @@ interface UseTextScrambleOptions {
 export function useTextScramble(
   text: string,
   isActive: boolean,
-  options: UseTextScrambleOptions = {}
+  options: UseTextScrambleOptions = {},
 ): string {
   const { duration = 1000, scrambleSpeed = 30 } = options;
   const [displayText, setDisplayText] = useState(text);
@@ -52,12 +53,9 @@ export function useTextScramble(
       if (progress < 1) {
         frame++;
         const speedFactor = Math.max(1, Math.floor(frame / 3));
-        timeoutRef.current = setTimeout(
-          () => {
-            rafRef.current = requestAnimationFrame(animate);
-          },
-          scrambleSpeed * speedFactor
-        );
+        timeoutRef.current = setTimeout(() => {
+          rafRef.current = requestAnimationFrame(animate);
+        }, scrambleSpeed * speedFactor);
       }
     };
 

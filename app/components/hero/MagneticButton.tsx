@@ -31,7 +31,7 @@ export function MagneticButton({
       "border border-accent-violet text-accent-violet",
       "hover:bg-accent-violet hover:text-zinc-950 hover:shadow-glow-violet",
     ],
-    className
+    className,
   );
 
   return (
@@ -50,7 +50,7 @@ export function MagneticButton({
       <motion.div
         className={cn(
           "absolute inset-0 rounded-full opacity-0 transition-opacity duration-300",
-          variant === "primary" ? "bg-accent-cyan/10" : "bg-accent-violet/10"
+          variant === "primary" ? "bg-accent-cyan/10" : "bg-accent-violet/10",
         )}
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}

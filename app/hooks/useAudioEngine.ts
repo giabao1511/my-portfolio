@@ -20,7 +20,11 @@ export function useAudioEngine(): AudioEngine {
   const initAudio = useCallback(() => {
     if (audioContextRef.current) return audioContextRef.current;
 
-    const ctx = new (window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    const ctx = new (
+      window.AudioContext ||
+      (window as typeof window & { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext
+    )();
     const masterGain = ctx.createGain();
     masterGain.connect(ctx.destination);
     masterGain.gain.value = 0; // Start muted

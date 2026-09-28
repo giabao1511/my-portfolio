@@ -82,7 +82,13 @@ export function SystemArchitecture() {
           >
             {/* Connection Lines */}
             <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient
+                id="lineGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
                 <stop offset="0%" stopColor="#06b6d4" />
                 <stop offset="100%" stopColor="#8b5cf6" />
               </linearGradient>
@@ -147,7 +153,9 @@ export function SystemArchitecture() {
                 <g
                   key={node.id}
                   className="cursor-pointer"
-                  onClick={() => setActiveNode(activeNode?.id === node.id ? null : node)}
+                  onClick={() =>
+                    setActiveNode(activeNode?.id === node.id ? null : node)
+                  }
                   onMouseEnter={() => setHoveredNode(node.id)}
                   onMouseLeave={() => setHoveredNode(null)}
                 >

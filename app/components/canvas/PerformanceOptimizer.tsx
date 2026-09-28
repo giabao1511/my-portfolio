@@ -13,7 +13,8 @@ export function usePerformanceTier(): PerformanceTier {
       const cores = navigator.hardwareConcurrency || 4;
 
       // Check device memory (Chrome only)
-      const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 8;
+      const memory =
+        (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 8;
 
       // Check for mobile/tablet
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

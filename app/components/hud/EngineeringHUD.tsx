@@ -72,14 +72,18 @@ function MetricCard({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-emerald"></span>
             </span>
-            <span className="text-[10px] font-mono text-accent-emerald">LIVE</span>
+            <span className="text-[10px] font-mono text-accent-emerald">
+              LIVE
+            </span>
           </div>
         )}
       </div>
 
       <div className="flex items-end justify-between">
         <div>
-          <span className="text-2xl font-mono font-bold text-zinc-50">{value}</span>
+          <span className="text-2xl font-mono font-bold text-zinc-50">
+            {value}
+          </span>
           {subValue && (
             <span className="ml-2 text-sm text-zinc-500">{subValue}</span>
           )}

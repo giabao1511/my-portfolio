@@ -85,10 +85,12 @@ git commit -m "deps: add R3F, drei, framer-motion, lucide"
 ### Task 2: Configure Tailwind Theme
 
 **Files:**
+
 - Create: `app/globals.css`
 - Modify: `tailwind.config.ts`
 
 **Interfaces:**
+
 - Consumes: Design tokens from spec
 - Produces: Custom CSS variables and Tailwind theme extension
 
@@ -127,11 +129,15 @@ git commit -m "deps: add R3F, drei, framer-motion, lucide"
 
 @layer utilities {
   .glow-cyan {
-    box-shadow: 0 0 20px var(--glow-cyan), 0 0 40px rgba(6, 182, 212, 0.2);
+    box-shadow:
+      0 0 20px var(--glow-cyan),
+      0 0 40px rgba(6, 182, 212, 0.2);
   }
 
   .glow-violet {
-    box-shadow: 0 0 20px var(--glow-violet), 0 0 40px rgba(139, 92, 246, 0.2);
+    box-shadow:
+      0 0 20px var(--glow-violet),
+      0 0 40px rgba(139, 92, 246, 0.2);
   }
 
   .text-glow-cyan {
@@ -164,7 +170,7 @@ const config: Config = {
       },
       animation: {
         "fade-up": "fadeUp 0.5s ease-out forwards",
-        "float": "float 6s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
       },
       keyframes: {
@@ -182,9 +188,12 @@ const config: Config = {
         },
       },
       boxShadow: {
-        "glow-cyan": "0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.2)",
-        "glow-violet": "0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.2)",
-        "glow-emerald": "0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.2)",
+        "glow-cyan":
+          "0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.2)",
+        "glow-violet":
+          "0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.2)",
+        "glow-emerald":
+          "0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.2)",
       },
     },
   },
@@ -205,10 +214,12 @@ git commit -m "config: add custom theme, animations, and glow utilities"
 ### Task 3: Create Utilities and Constants
 
 **Files:**
+
 - Create: `app/lib/utils.ts`
 - Create: `app/lib/constants.ts`
 
 **Interfaces:**
+
 - Consumes: None
 - Produces: `cn()` export, `STATS` array, `COLORS` object
 
@@ -298,9 +309,11 @@ git commit -m "feat: add utilities and constants"
 ### Task 4: Create Hero3DCanvas (3D Particle Sphere)
 
 **Files:**
+
 - Create: `app/components/hero/Hero3DCanvas.tsx`
 
 **Interfaces:**
+
 - Consumes: Mouse position (internal state)
 - Produces: R3F Canvas with particle sphere
 
@@ -430,9 +443,11 @@ git commit -m "feat: add Hero3DCanvas with particle sphere"
 ### Task 5: Create MagneticCursor
 
 **Files:**
+
 - Create: `app/components/ui/MagneticCursor.tsx`
 
 **Interfaces:**
+
 - Consumes: None (uses window events)
 - Produces: Global cursor element
 
@@ -539,9 +554,11 @@ git commit -m "feat: add MagneticCursor with lerped trailing"
 ### Task 6: Create HeroTypography
 
 **Files:**
+
 - Create: `app/components/hero/HeroTypography.tsx`
 
 **Interfaces:**
+
 - Consumes: `PROFILE` from constants
 - Produces: Animated text elements
 
@@ -638,9 +655,11 @@ git commit -m "feat: add HeroTypography with staggered animation"
 ### Task 7: Create MagneticButton
 
 **Files:**
+
 - Create: `app/components/hero/MagneticButton.tsx`
 
 **Interfaces:**
+
 - Consumes: Props (children, variant, href)
 - Produces: Reusable CTA button
 
@@ -723,9 +742,11 @@ git commit -m "feat: add MagneticButton with hover glow"
 ### Task 8: Create BentoStats
 
 **Files:**
+
 - Create: `app/components/hero/BentoStats.tsx`
 
 **Interfaces:**
+
 - Consumes: `STATS` from constants
 - Produces: Grid of stat cards
 
@@ -837,6 +858,7 @@ git commit -m "feat: add BentoStats with hover physics"
 ### Task 9: Create ScrollIndicator
 
 **Files:**
+
 - Create: `app/components/hero/ScrollIndicator.tsx`
 
 - [ ] **Step 1: Create ScrollIndicator.tsx**
@@ -885,9 +907,11 @@ git commit -m "feat: add ScrollIndicator with bounce animation"
 ### Task 10: Create HeroSection Container
 
 **Files:**
+
 - Create: `app/components/hero/HeroSection.tsx`
 
 **Interfaces:**
+
 - Consumes: All hero sub-components
 - Produces: Complete hero section with mouse tracking
 
@@ -1012,10 +1036,12 @@ git commit -m "feat: add HeroSection container with mouse tracking"
 ### Task 11: Update Layout and Page
 
 **Files:**
+
 - Modify: `app/layout.tsx`
 - Modify: `app/page.tsx`
 
 **Interfaces:**
+
 - Consumes: HeroSection, MagneticCursor
 - Produces: Complete page with fonts and hero
 
@@ -1104,6 +1130,7 @@ Expected: Hero section loads, 3D canvas renders, no console errors
 - [ ] **Step 3: Test mobile fallback**
 
 In browser DevTools, set viewport to mobile (375px) and verify:
+
 - No 3D canvas errors
 - Static gradient background shows
 - Content is readable and stacked
@@ -1129,5 +1156,6 @@ git commit -m "chore: verify build and runtime"
 **Dependencies:** Task 4 requires Task 3, Task 7 requires Task 6, Task 10 requires Tasks 4-9
 
 **Next steps after Phase 1:**
+
 - Phase 2: Experience Timeline, Interactive Terminal, About Section
 - Polish: Performance optimization, accessibility audit, SEO

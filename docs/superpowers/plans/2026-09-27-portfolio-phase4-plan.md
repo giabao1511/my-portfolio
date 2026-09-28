@@ -11,6 +11,7 @@
 ### Task 1: Update Metadata
 
 **Files:**
+
 - Modify: `app/layout.tsx`
 
 ```bash
@@ -23,6 +24,7 @@ git commit -m "feat: update metadata with SEO tags"
 ### Task 2: Create Sitemap
 
 **Files:**
+
 - Create: `app/sitemap.ts`
 
 ```bash
@@ -35,6 +37,7 @@ git commit -m "feat: add sitemap for SEO"
 ### Task 3: Create Robots.txt
 
 **Files:**
+
 - Create: `app/robots.ts`
 
 ```bash
@@ -47,6 +50,7 @@ git commit -m "feat: add robots.txt"
 ### Task 4: Install Analytics
 
 **Files:**
+
 - Install: `@vercel/analytics`
 
 ```bash
@@ -60,6 +64,7 @@ git commit -m "deps: add @vercel/analytics"
 ### Task 5: Create Analytics Provider
 
 **Files:**
+
 - Create: `app/components/analytics/index.tsx`
 - Modify: `app/layout.tsx`
 
@@ -73,6 +78,7 @@ git commit -m "feat: add Vercel Analytics"
 ### Task 6: Create PWA Manifest
 
 **Files:**
+
 - Create: `public/manifest.json`
 
 ```bash
@@ -85,6 +91,7 @@ git commit -m "feat: add PWA manifest"
 ### Task 7: Create Service Worker (optional)
 
 **Files:**
+
 - Create: `app/service-worker.ts`
 
 ```bash

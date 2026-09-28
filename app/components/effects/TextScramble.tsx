@@ -36,14 +36,17 @@ export function TextScramble({
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(element);
     return () => observer.disconnect();
   }, [triggerOnce, hasTriggered]);
 
-  const scrambledText = useTextScramble(text, isActive, { duration, scrambleSpeed });
+  const scrambledText = useTextScramble(text, isActive, {
+    duration,
+    scrambleSpeed,
+  });
 
   return (
     <span ref={ref} className={cn("inline-block font-mono", className)}>

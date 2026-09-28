@@ -5,6 +5,7 @@
 **Goal:** Build the Experience Timeline section and Interactive Terminal for Chau Gia Bao's portfolio.
 
 **Success criteria:**
+
 - Timeline nodes animate on scroll (Framer Motion `useInView`)
 - Terminal opens via button click or keyboard shortcut (`` ` ``)
 - Terminal commands work: `--skills`, `--contact`, `--download-cv`
@@ -16,6 +17,7 @@
 ## Design System (Phase 1 carryover)
 
 ### Colors
+
 - Background: #09090b (zinc-950)
 - Surface: #18181b (zinc-900)
 - Accent Cyan: #06b6d4
@@ -24,6 +26,7 @@
 - Glow effects from Phase 1
 
 ### Typography
+
 - Display: Inter
 - Mono: JetBrains Mono (terminal)
 
@@ -159,15 +162,15 @@ app/components/
 
 ### Commands
 
-| Command | Output |
-|---------|--------|
-| `help` | List available commands |
-| `about` | Short bio |
-| `skills` | Tech stack summary |
-| `contact` | Email, phone, location |
-| `download-cv` | "CV download coming soon!" |
-| `clear` | Clear terminal |
-| `exit` / `quit` | Close terminal |
+| Command         | Output                     |
+| --------------- | -------------------------- |
+| `help`          | List available commands    |
+| `about`         | Short bio                  |
+| `skills`        | Tech stack summary         |
+| `contact`       | Email, phone, location     |
+| `download-cv`   | "CV download coming soon!" |
+| `clear`         | Clear terminal             |
+| `exit` / `quit` | Close terminal             |
 
 ### Trigger Methods
 
@@ -186,7 +189,7 @@ useEffect(() => {
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "`" && !isInputFocused()) {
       e.preventDefault();
-      setIsTerminalOpen(prev => !prev);
+      setIsTerminalOpen((prev) => !prev);
     }
     if (e.key === "Escape" && isTerminalOpen) {
       setIsTerminalOpen(false);
@@ -237,6 +240,7 @@ app/components/
 ## Dependencies
 
 No new dependencies required — using existing:
+
 - Framer Motion (animations)
 - Lucide React (terminal icons)
 - clsx + tailwind-merge (classes)

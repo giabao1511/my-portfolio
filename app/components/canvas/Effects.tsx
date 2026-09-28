@@ -1,6 +1,11 @@
 "use client";
 
-import { Bloom, ChromaticAberration, Noise, Vignette } from "@react-three/postprocessing";
+import {
+  Bloom,
+  ChromaticAberration,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { Vector2 } from "three";
 

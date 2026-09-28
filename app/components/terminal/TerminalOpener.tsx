@@ -19,7 +19,7 @@ export function TerminalOpener({ className }: TerminalOpenerProps) {
         "border border-accent-violet text-accent-violet",
         "hover:bg-accent-violet hover:text-zinc-950 hover:shadow-glow-violet",
         "transition-all duration-300 font-medium",
-        className
+        className,
       )}
     >
       <TerminalIcon className="w-5 h-5" />

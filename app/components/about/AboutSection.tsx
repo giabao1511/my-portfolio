@@ -4,11 +4,7 @@ import { motion } from "framer-motion";
 import { MapPin, Zap, Heart } from "lucide-react";
 import { cn } from "../../lib/utils";
 
-const values = [
-  "Clean Architecture",
-  "Type-Safe Code",
-  "Performance First",
-];
+const values = ["Clean Architecture", "Type-Safe Code", "Performance First"];
 
 const interests = [
   "Open Source",
@@ -38,9 +34,7 @@ export function AboutSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-zinc-50 mb-4">
             About
           </h2>
-          <p className="text-zinc-400 text-lg">
-            The person behind the code
-          </p>
+          <p className="text-zinc-400 text-lg">The person behind the code</p>
         </motion.div>
 
         {/* Content Grid */}
@@ -74,9 +68,9 @@ export function AboutSection() {
               The Builder&apos;s Mindset
             </h3>
             <p className="text-zinc-300 leading-relaxed mb-6">
-              I believe in clean architecture, type-safe code, and performance-first
-              engineering. Beyond code, I&apos;m exploring the startup culture in
-              Vietnam and building things that matter.
+              I believe in clean architecture, type-safe code, and
+              performance-first engineering. Beyond code, I&apos;m exploring the
+              startup culture in Vietnam and building things that matter.
             </p>
 
             {/* Values */}
@@ -94,7 +88,7 @@ export function AboutSection() {
                     transition={{ delay: 0.3 + i * 0.1 }}
                     className={cn(
                       "px-3 py-1 rounded-full text-sm border",
-                      colorClasses.cyan
+                      colorClasses.cyan,
                     )}
                   >
                     {value}
@@ -118,7 +112,7 @@ export function AboutSection() {
                     transition={{ delay: 0.5 + i * 0.1 }}
                     className={cn(
                       "px-3 py-1 rounded-full text-sm border",
-                      colorClasses.violet
+                      colorClasses.violet,
                     )}
                   >
                     {interest}

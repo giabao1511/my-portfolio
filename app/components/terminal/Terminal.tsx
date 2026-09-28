@@ -4,7 +4,11 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { executeCommand, getWelcomeMessage, type CommandOutput } from "./terminal-commands";
+import {
+  executeCommand,
+  getWelcomeMessage,
+  type CommandOutput,
+} from "./terminal-commands";
 
 interface TerminalProps {
   isOpen: boolean;
@@ -145,7 +149,7 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
                           "whitespace-pre-wrap",
                           output.type === "error" && "text-red-400",
                           output.type === "success" && "text-accent-emerald",
-                          output.type === "output" && "text-zinc-300"
+                          output.type === "output" && "text-zinc-300",
                         )}
                       >
                         {output.text}

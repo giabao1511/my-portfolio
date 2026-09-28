@@ -16,13 +16,18 @@ const Hero3DCanvas = dynamic(
     loading: () => (
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950" />
     ),
-  }
+  },
 );
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
-  const [isReducedMotion, setIsReducedMotion] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
     // Detect mobile
@@ -34,8 +39,6 @@ export function HeroSection() {
 
     // Detect reduced motion preference
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setIsReducedMotion(mediaQuery.matches);
-
     const handleMotionChange = (e: MediaQueryListEvent) => {
       setIsReducedMotion(e.matches);
     };
@@ -75,7 +78,8 @@ export function HeroSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle at center, transparent 0%, rgba(9,9,11,0.5) 50%, rgba(9,9,11,1) 100%)",
+          background:
+            "radial-gradient(circle at center, transparent 0%, rgba(9,9,11,0.5) 50%, rgba(9,9,11,1) 100%)",
         }}
       />
 

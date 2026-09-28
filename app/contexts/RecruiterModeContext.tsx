@@ -1,13 +1,21 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 interface RecruiterModeContextType {
   isEnabled: boolean;
   toggle: () => void;
 }
 
-const RecruiterModeContext = createContext<RecruiterModeContextType | undefined>(undefined);
+const RecruiterModeContext = createContext<
+  RecruiterModeContextType | undefined
+>(undefined);
 
 const STORAGE_KEY = "recruiter-mode";
 
@@ -43,7 +51,9 @@ export function RecruiterModeProvider({ children }: { children: ReactNode }) {
 export function useRecruiterMode() {
   const context = useContext(RecruiterModeContext);
   if (context === undefined) {
-    throw new Error("useRecruiterMode must be used within RecruiterModeProvider");
+    throw new Error(
+      "useRecruiterMode must be used within RecruiterModeProvider",
+    );
   }
   return context;
 }

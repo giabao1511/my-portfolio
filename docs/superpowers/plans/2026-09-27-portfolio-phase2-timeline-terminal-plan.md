@@ -37,9 +37,11 @@
 ### Task 1: Add Experience Data to Constants
 
 **Files:**
+
 - Modify: `app/lib/constants.ts`
 
 **Interfaces:**
+
 - Consumes: None
 - Produces: `EXPERIENCE` array export
 
@@ -108,9 +110,11 @@ git commit -m "feat: add EXPERIENCE constant data"
 ### Task 2: Create ExperienceCard Component
 
 **Files:**
+
 - Create: `app/components/experience/ExperienceCard.tsx`
 
 **Interfaces:**
+
 - Consumes: Single experience object, color variant
 - Produces: Animated card element
 
@@ -232,9 +236,11 @@ git commit -m "feat: add ExperienceCard component"
 ### Task 3: Create ExperienceTimeline Component
 
 **Files:**
+
 - Create: `app/components/experience/ExperienceTimeline.tsx`
 
 **Interfaces:**
+
 - Consumes: `EXPERIENCE` from constants
 - Produces: Timeline layout with nodes
 
@@ -305,9 +311,11 @@ git commit -m "feat: add ExperienceTimeline layout"
 ### Task 4: Create ExperienceSection Container
 
 **Files:**
+
 - Create: `app/components/experience/ExperienceSection.tsx`
 
 **Interfaces:**
+
 - Consumes: ExperienceTimeline
 - Produces: Full section with section header
 
@@ -359,9 +367,11 @@ git commit -m "feat: add ExperienceSection container"
 ### Task 5: Create Terminal Commands
 
 **Files:**
+
 - Create: `app/components/terminal/terminal-commands.ts`
 
 **Interfaces:**
+
 - Consumes: Command string
 - Produces: Array of output lines
 
@@ -417,7 +427,9 @@ export function executeCommand(input: string): CommandOutput[] {
       return [{ type: "output", text: CONTACT_TEXT }];
     case "download-cv":
     case "cv":
-      return [{ type: "success", text: "CV download link will be available soon!" }];
+      return [
+        { type: "success", text: "CV download link will be available soon!" },
+      ];
     case "clear":
       return [{ type: "clear", text: "" }];
     case "exit":
@@ -454,9 +466,11 @@ git commit -m "feat: add terminal command handlers"
 ### Task 6: Create Terminal Component
 
 **Files:**
+
 - Create: `app/components/terminal/Terminal.tsx`
 
 **Interfaces:**
+
 - Consumes: `isOpen`, `onClose` props
 - Produces: Interactive terminal modal
 
@@ -648,6 +662,7 @@ git commit -m "feat: add Terminal component"
 ### Task 7: Create TerminalOpener Component (Button)
 
 **Files:**
+
 - Create: `app/components/terminal/TerminalOpener.tsx`
 
 - [ ] **Step 1: Create TerminalOpener.tsx**
@@ -694,9 +709,11 @@ git commit -m "feat: add TerminalOpener button"
 ### Task 8: Create TerminalProvider (Global State)
 
 **Files:**
+
 - Create: `app/components/terminal/TerminalProvider.tsx`
 
 **Interfaces:**
+
 - Consumes: Children
 - Produces: Terminal context + global keyboard listener
 
@@ -765,6 +782,7 @@ git commit -m "feat: add TerminalProvider with global keyboard shortcut"
 ### Task 9: Integrate Components into Page
 
 **Files:**
+
 - Modify: `app/page.tsx`
 - Create: `app/components/terminal/index.ts` (barrel export)
 
@@ -877,5 +895,6 @@ git commit -m "chore: verify Phase 2 functionality"
 **Dependencies:** Tasks 1→2→3→4 are sequential; Terminal tasks 5→6→7→8→9 are sequential; both tracks can run in parallel after Task 1
 
 **Next steps after Phase 2:**
+
 - Phase 3: Tech Arsenal cards, Contact form, About section, Footer
 - Polish: SEO, accessibility audit, performance optimization

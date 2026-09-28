@@ -18,7 +18,7 @@ export function SoundToggle() {
         isMuted
           ? "bg-zinc-900/80 border-zinc-700 text-zinc-500"
           : "bg-accent-cyan/10 border-accent-cyan/50 text-accent-cyan",
-        "hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-cyan/50"
+        "hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-cyan/50",
       )}
       aria-label={isMuted ? "Enable sound" : "Mute sound"}
     >

@@ -10,6 +10,7 @@ Transform the existing Next.js TypeScript portfolio into an award-winning, Awwwa
 - Optional audio-visual immersion
 
 **Success criteria:**
+
 - 60+ FPS across all animations
 - Zero layout shift from animations
 - Graceful degradation if WebGL is unavailable
@@ -21,12 +22,12 @@ Transform the existing Next.js TypeScript portfolio into an award-winning, Awwwa
 
 ### Dependencies to Add
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `@studio-freight/lenis` | ^1.x | Ultra-smooth inertia scrolling |
-| `gsap` | ^3.x | Scroll animations, timeline orchestration |
-| `@react-three/postprocessing` | ^2.x | Bloom, ChromaticAberration, Noise, Vignette |
-| `postprocessing` | ^6.x | Peer dependency for postprocessing |
+| Package                       | Version | Purpose                                     |
+| ----------------------------- | ------- | ------------------------------------------- |
+| `@studio-freight/lenis`       | ^1.x    | Ultra-smooth inertia scrolling              |
+| `gsap`                        | ^3.x    | Scroll animations, timeline orchestration   |
+| `@react-three/postprocessing` | ^2.x    | Bloom, ChromaticAberration, Noise, Vignette |
+| `postprocessing`              | ^6.x    | Peer dependency for postprocessing          |
 
 ### Existing Dependencies to Retain
 
@@ -90,6 +91,7 @@ public/
 **Purpose:** Wrap the app in Lenis smooth scroll, sync with GSAP.
 
 **Implementation:**
+
 - Client component (`"use client"`)
 - Import `Lenis` from `@studio-freight/lenis`
 - Initialize in `useEffect`, cleanup in return
@@ -100,6 +102,7 @@ public/
 **Props:** None (global provider)
 
 **Context:**
+
 ```typescript
 interface LenisContextValue {
   lenis: Lenis | null;
@@ -118,19 +121,21 @@ interface LenisContextValue {
 **Purpose:** Reusable component for scroll-triggered fade + translate animations.
 
 **Props:**
+
 ```typescript
 interface ScrollRevealProps {
   children: React.ReactNode;
-  delay?: number;       // ms delay before animation (default: 0)
+  delay?: number; // ms delay before animation (default: 0)
   direction?: "up" | "down" | "left" | "right"; // default: "up"
-  duration?: number;   // animation duration in seconds (default: 0.8)
-  distance?: number;   // translate distance in px (default: 60)
-  threshold?: number;  // 0-1, viewport trigger point (default: 0.2)
-  once?: boolean;      // only animate once (default: true)
+  duration?: number; // animation duration in seconds (default: 0.8)
+  distance?: number; // translate distance in px (default: 60)
+  threshold?: number; // 0-1, viewport trigger point (default: 0.2)
+  once?: boolean; // only animate once (default: true)
 }
 ```
 
 **Behavior:**
+
 - Uses IntersectionObserver for lightweight trigger
 - On intersect: GSAP animates from offset position to 0
 - `will-change: transform` set before, removed after animation complete
@@ -140,12 +145,14 @@ interface ScrollRevealProps {
 **Purpose:** Terminal/hacker text-decoding effect on heading reveals.
 
 **Hook API (`useTextScramble.ts`):**
+
 ```typescript
 function useTextScramble(text: string, isActive: boolean): string;
 // Returns current scrambled/decoded string
 ```
 
 **Algorithm:**
+
 - Charset: `!@#$%^&*()_+-=[]{}|;':\",./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`
 - On activate: start cycling random chars
 - Over `duration` ms, progressively reveal actual characters left-to-right
@@ -153,17 +160,19 @@ function useTextScramble(text: string, isActive: boolean): string;
 - Final state: exact original string
 
 **Component API (`TextScramble.tsx`):**
+
 ```typescript
 interface TextScrambleProps {
   text: string;
   className?: string;
-  duration?: number;    // total scramble duration in ms (default: 1000)
+  duration?: number; // total scramble duration in ms (default: 1000)
   scrambleSpeed?: number; // ms between frame updates (default: 30)
   triggerOnce?: boolean;
 }
 ```
 
 **Behavior:**
+
 - Uses IntersectionObserver to trigger on viewport enter
 - Wraps children in `<span>` with monospace font override
 - Subtle cursor blink at end while scrambling
@@ -177,6 +186,7 @@ interface TextScrambleProps {
 **Purpose:** Fixed-position R3F Canvas covering the entire viewport.
 
 **Implementation:**
+
 - Client component with `position: fixed`, `inset: 0`, `z-index: 0`
 - `pointer-events: none` so it doesn't block interactions
 - `frameloop="demand"` for performance
@@ -188,12 +198,14 @@ interface TextScrambleProps {
 **Purpose:** Full-screen GLSL noise displacement mesh that reacts to mouse velocity.
 
 **Visual:**
+
 - Large plane filling the viewport
 - Animated Perlin/Simplex noise displacement in Z-axis
 - Subtle iridescent/gradient coloring
 - Mouse drag creates fluid wave ripples radiating from cursor
 
 **Shader Uniforms:**
+
 ```glsl
 uniform float uTime;
 uniform vec2 uMouse;       // normalized -1 to 1
@@ -202,17 +214,20 @@ uniform float uIntensity;  // displacement strength (default: 0.5)
 ```
 
 **Vertex Shader Logic:**
+
 - Sample 2D noise at `uv * 3.0 + uTime * 0.1`
 - Displace vertex.z by noise * uIntensity
 - Mouse influence: `smoothstep(distance, 0.0, 1.0)` falloff from cursor
 - Velocity adds to displacement strength (faster = bigger waves)
 
 **Fragment Shader Logic:**
+
 - Base color: deep navy/charcoal gradient
 - Iridescent overlay: color shifts based on noise value
 - Mouse proximity adds subtle glow
 
 **Performance:**
+
 - PlaneGeometry with 64x64 segments (sufficient detail)
 - `DoubleSide` rendering
 - No shadows
@@ -222,6 +237,7 @@ uniform float uIntensity;  // displacement strength (default: 0.5)
 **Purpose:** Depth-of-field volumetric dust/particles with bloom.
 
 **Visual:**
+
 - 500-1000 small glowing points
 - Random distribution across 3D space (depth: -10 to 10)
 - Slow upward drift animation
@@ -229,6 +245,7 @@ uniform float uIntensity;  // displacement strength (default: 0.5)
 - Some particles twinkle (opacity oscillation)
 
 **Implementation:**
+
 - `Points` geometry with `PointsMaterial`
 - Custom shader for twinkling (vertex shader: modulate point size)
 - Add `<EffectComposer>` with:
@@ -241,6 +258,7 @@ uniform float uIntensity;  // displacement strength (default: 0.5)
 **Purpose:** 3D floating skill/stat cards with spring-based physics.
 
 **Data:** Map existing BentoStats data:
+
 ```typescript
 const skills = [
   { label: "4+", unit: "Years", desc: "of professional experience" },
@@ -251,12 +269,14 @@ const skills = [
 ```
 
 **Visual:**
+
 - Rounded rectangle mesh (BoxGeometry, very thin)
 - Glassmorphism material: `MeshPhysicalMaterial` with transmission
 - Text geometry (drei `Text`) on each card
 - Cards float at varying Y positions, gently bobbing
 
 **Physics:**
+
 - On hover (raycaster): spring animation toward camera
 - Spring config: `stiffness: 100, damping: 10`
 - Subtle continuous rotation on Y axis
@@ -284,10 +304,12 @@ const skills = [
 **Purpose:** Upgrade existing MagneticCursor with particle trail + blend mode.
 
 **Current state (from `MagneticCursor.tsx`):**
+
 - CSS-based cursor follower with lag
 - Simple scale on hover
 
 **Upgrade:**
+
 - **Blend mode:** `mix-blend-mode: difference` for high contrast on any background
 - **Particle trail:** On fast movement, emit fading dots
   - Store last N positions, render as fading circles
@@ -297,6 +319,7 @@ const skills = [
 - **Performance:** Use `transform` only, no layout properties
 
 **Visual spec:**
+
 - Default: 12px circle, white fill
 - On interactive: 20px circle, hollow with border
 - On dragging: 30px ring
@@ -307,33 +330,38 @@ const skills = [
 **Purpose:** Reusable card component with spotlight + 3D tilt.
 
 **Props:**
+
 ```typescript
 interface BentoCardProps {
   children: React.ReactNode;
   className?: string;
-  size?: "sm" | "md" | "lg";  // default: "md"
-  glowColor?: string;          // default: theme accent
-  tiltStrength?: number;       // max rotation in degrees (default: 10)
+  size?: "sm" | "md" | "lg"; // default: "md"
+  glowColor?: string; // default: theme accent
+  tiltStrength?: number; // max rotation in degrees (default: 10)
 }
 ```
 
 **Visual:**
+
 - Glassmorphism: `backdrop-filter: blur(12px)`, semi-transparent background
 - Dynamic spotlight: radial gradient following cursor within card bounds
 - Glow border: `box-shadow` with glow color, opacity tied to cursor proximity
 
 **3D Tilt Behavior:**
+
 - Track `mousemove` on card
 - Calculate `rotateX` and `rotateY` from cursor position relative to card center
 - Clamp rotation to ±`tiltStrength` degrees
 - Smooth interpolation: lerp current rotation toward target (factor: 0.1)
 
 **Specular Sheen:**
+
 - Pseudo-element `::after` with diagonal gradient
 - Gradient position tied to cursor position
 - Opacity increases toward edges, creates "glare" effect
 
 **Implementation:**
+
 - CSS custom properties `--tilt-x`, `--tilt-y`, `--mouse-x`, `--mouse-y`
 - `transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y))`
 - `will-change: transform` on hover only
@@ -343,12 +371,14 @@ interface BentoCardProps {
 **Purpose:** Convert Experience section to GSAP-pinned horizontal scrub.
 
 **Behavior:**
+
 - Container pinned at top of viewport
 - Vertical scroll distance maps to horizontal translate
 - Cards inside have parallax layers (background moves slower)
 - Smooth deceleration on scroll release
 
 **Implementation:**
+
 - GSAP ScrollTrigger with `pin: true`, `scrub: 1`
 - Inner flex container translates `-x` based on scroll progress
 - Parallax: cards have `xPercent` offset based on position in carousel
@@ -364,20 +394,22 @@ interface BentoCardProps {
 **Purpose:** Web Audio API controller with synthesized sounds.
 
 **Initialization:**
+
 - Create `AudioContext` lazily on first user interaction (browser policy)
 - Context stored in React Context
 - Master gain node for global mute
 
 **Sound Types:**
 
-| Sound | Type | Description |
-|-------|------|-------------|
-| Ambient | Loop | Low-frequency ambient drone (optional, via MP3) |
-| Hover | Buffer | Soft sine wave blip, 50ms, 440Hz → 880Hz |
-| Click | Buffer | Low thud, 30ms, 100Hz with quick decay |
-| Tab switch | Buffer | Sci-fi whoosh, 150ms, filtered noise |
+| Sound      | Type   | Description                                     |
+| ---------- | ------ | ----------------------------------------------- |
+| Ambient    | Loop   | Low-frequency ambient drone (optional, via MP3) |
+| Hover      | Buffer | Soft sine wave blip, 50ms, 440Hz → 880Hz        |
+| Click      | Buffer | Low thud, 30ms, 100Hz with quick decay          |
+| Tab switch | Buffer | Sci-fi whoosh, 150ms, filtered noise            |
 
 **API:**
+
 ```typescript
 interface AudioEngineValue {
   isEnabled: boolean;
@@ -395,6 +427,7 @@ interface AudioEngineValue {
 **Purpose:** Animated toggle button for audio.
 
 **Visual:**
+
 - 40x40px circle button
 - When muted: speaker icon with X
 - When enabled: animated sound-wave bars
@@ -402,6 +435,7 @@ interface AudioEngineValue {
 - Position: fixed, bottom-right corner, above footer
 
 **States:**
+
 - `muted` (default): grey, no animation
 - `enabled`: accent color, wave bars animate
 - `playing`: subtle glow pulse
@@ -459,29 +493,29 @@ interface AudioEngineValue {
 
 ## 10. File Checklist
 
-| File | Phase | Status |
-|------|-------|--------|
-| `package.json` | Setup | Add deps |
-| `app/components/scroll/LenisProvider.tsx` | 1 | New |
-| `app/components/scroll/ScrollReveal.tsx` | 1 | New |
-| `app/hooks/useTextScramble.ts` | 1 | New |
-| `app/hooks/useMousePosition.ts` | 1 | New |
-| `app/hooks/useLenis.ts` | 1 | New |
-| `app/components/canvas/Scene.tsx` | 2 | New |
-| `app/components/canvas/ShaderPlane.tsx` | 2 | New |
-| `app/components/canvas/FloatingParticles.tsx` | 2 | New |
-| `app/components/canvas/FloatingCards.tsx` | 2 | New |
-| `app/components/canvas/Effects.tsx` | 2 | New |
-| `app/lib/shaders/vertex.glsl` | 2 | New |
-| `app/lib/shaders/fragment.glsl` | 2 | New |
-| `app/components/effects/TextScramble.tsx` | 1 | New |
-| `app/components/effects/Cursor.tsx` | 3 | Upgrade existing |
-| `app/components/effects/BentoCard.tsx` | 3 | New |
-| `app/components/scroll/HorizontalSection.tsx` | 3 | New |
-| `app/components/audio/AudioEngine.tsx` | 4 | New |
-| `app/components/audio/SoundToggle.tsx` | 4 | New |
-| `app/layout.tsx` | All | Update: wrap with providers |
-| `app/page.tsx` | All | Update: integrate new components |
+| File                                          | Phase | Status                           |
+| --------------------------------------------- | ----- | -------------------------------- |
+| `package.json`                                | Setup | Add deps                         |
+| `app/components/scroll/LenisProvider.tsx`     | 1     | New                              |
+| `app/components/scroll/ScrollReveal.tsx`      | 1     | New                              |
+| `app/hooks/useTextScramble.ts`                | 1     | New                              |
+| `app/hooks/useMousePosition.ts`               | 1     | New                              |
+| `app/hooks/useLenis.ts`                       | 1     | New                              |
+| `app/components/canvas/Scene.tsx`             | 2     | New                              |
+| `app/components/canvas/ShaderPlane.tsx`       | 2     | New                              |
+| `app/components/canvas/FloatingParticles.tsx` | 2     | New                              |
+| `app/components/canvas/FloatingCards.tsx`     | 2     | New                              |
+| `app/components/canvas/Effects.tsx`           | 2     | New                              |
+| `app/lib/shaders/vertex.glsl`                 | 2     | New                              |
+| `app/lib/shaders/fragment.glsl`               | 2     | New                              |
+| `app/components/effects/TextScramble.tsx`     | 1     | New                              |
+| `app/components/effects/Cursor.tsx`           | 3     | Upgrade existing                 |
+| `app/components/effects/BentoCard.tsx`        | 3     | New                              |
+| `app/components/scroll/HorizontalSection.tsx` | 3     | New                              |
+| `app/components/audio/AudioEngine.tsx`        | 4     | New                              |
+| `app/components/audio/SoundToggle.tsx`        | 4     | New                              |
+| `app/layout.tsx`                              | All   | Update: wrap with providers      |
+| `app/page.tsx`                                | All   | Update: integrate new components |
 
 ---
 

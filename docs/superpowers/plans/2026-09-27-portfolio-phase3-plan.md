@@ -25,20 +25,77 @@
 ### Task 1: Add Tech Stack Data to Constants
 
 **Files:**
+
 - Modify: `app/lib/constants.ts`
 
 - [ ] **Step 1: Add TECH_STACK constant**
 
 ```typescript
 export const TECH_STACK = [
-  { name: "React", category: "Frontend", rating: 5, years: "4+", icon: "Code", color: "cyan" },
-  { name: "Next.js", category: "Frontend", rating: 4, years: "3+", icon: "Globe", color: "cyan" },
-  { name: "Node.js", category: "Backend", rating: 5, years: "4+", icon: "Server", color: "emerald" },
-  { name: "TypeScript", category: "Language", rating: 5, years: "3+", icon: "FileCode", color: "violet" },
-  { name: "PostgreSQL", category: "Database", rating: 4, years: "2+", icon: "Database", color: "emerald" },
-  { name: "AWS", category: "Cloud", rating: 3, years: "2+", icon: "Cloud", color: "violet" },
-  { name: "Docker", category: "DevOps", rating: 4, years: "2+", icon: "Box", color: "cyan" },
-  { name: "GitLab CI", category: "DevOps", rating: 5, years: "4+", icon: "GitBranch", color: "emerald" },
+  {
+    name: "React",
+    category: "Frontend",
+    rating: 5,
+    years: "4+",
+    icon: "Code",
+    color: "cyan",
+  },
+  {
+    name: "Next.js",
+    category: "Frontend",
+    rating: 4,
+    years: "3+",
+    icon: "Globe",
+    color: "cyan",
+  },
+  {
+    name: "Node.js",
+    category: "Backend",
+    rating: 5,
+    years: "4+",
+    icon: "Server",
+    color: "emerald",
+  },
+  {
+    name: "TypeScript",
+    category: "Language",
+    rating: 5,
+    years: "3+",
+    icon: "FileCode",
+    color: "violet",
+  },
+  {
+    name: "PostgreSQL",
+    category: "Database",
+    rating: 4,
+    years: "2+",
+    icon: "Database",
+    color: "emerald",
+  },
+  {
+    name: "AWS",
+    category: "Cloud",
+    rating: 3,
+    years: "2+",
+    icon: "Cloud",
+    color: "violet",
+  },
+  {
+    name: "Docker",
+    category: "DevOps",
+    rating: 4,
+    years: "2+",
+    icon: "Box",
+    color: "cyan",
+  },
+  {
+    name: "GitLab CI",
+    category: "DevOps",
+    rating: 5,
+    years: "4+",
+    icon: "GitBranch",
+    color: "emerald",
+  },
 ] as const;
 ```
 
@@ -52,9 +109,11 @@ git commit -m "feat: add TECH_STACK constant data"
 ### Task 2: Create TechCard Component
 
 **Files:**
+
 - Create: `app/components/tech/TechCard.tsx`
 
 **Features:**
+
 - 3D tilt effect on hover (mouse tracking)
 - Glow effect based on color
 - Star rating display
@@ -69,9 +128,11 @@ git commit -m "feat: add TechCard with 3D tilt"
 ### Task 3: Create TechArsenalGrid Component
 
 **Files:**
+
 - Create: `app/components/tech/TechArsenalGrid.tsx`
 
 **Features:**
+
 - Responsive grid (4 cols desktop, 2 cols tablet, 1 col mobile)
 - Staggered scroll animation
 
@@ -85,9 +146,11 @@ git commit -m "feat: add TechArsenalGrid layout"
 ### Task 4: Create TechArsenalSection Component
 
 **Files:**
+
 - Create: `app/components/tech/TechArsenalSection.tsx`
 
 **Features:**
+
 - Section header
 - Imports TechArsenalGrid
 
@@ -101,9 +164,11 @@ git commit -m "feat: add TechArsenalSection container"
 ### Task 5: Create AboutSection Component
 
 **Files:**
+
 - Create: `app/components/about/AboutSection.tsx`
 
 **Features:**
+
 - Two-column layout (photo + bio)
 - Value badges
 - Scroll animation
@@ -118,9 +183,11 @@ git commit -m "feat: add AboutSection"
 ### Task 6: Create ContactForm Component
 
 **Files:**
+
 - Create: `app/components/contact/ContactForm.tsx`
 
 **Features:**
+
 - Form fields: name, email, subject, message
 - Validation with error messages
 - Success state
@@ -136,9 +203,11 @@ git commit -m "feat: add ContactForm with validation"
 ### Task 7: Create ContactSection Component
 
 **Files:**
+
 - Create: `app/components/contact/ContactSection.tsx`
 
 **Features:**
+
 - Section header
 - Imports ContactForm
 - Alternative contact info
@@ -153,9 +222,11 @@ git commit -m "feat: add ContactSection container"
 ### Task 8: Create Footer Component
 
 **Files:**
+
 - Create: `app/components/footer/Footer.tsx`
 
 **Features:**
+
 - Navigation links
 - Social icons (GitHub, LinkedIn, Email)
 - Copyright
@@ -170,9 +241,11 @@ git commit -m "feat: add Footer component"
 ### Task 9: Update Page with All Sections
 
 **Files:**
+
 - Modify: `app/page.tsx`
 
 **Add:**
+
 - TechArsenalSection
 - AboutSection
 - ContactSection
@@ -201,5 +274,6 @@ git commit -m "chore: verify Phase 3 functionality"
 **Dependencies:** Sequential — each task builds on the previous
 
 **Next steps after Phase 3:**
+
 - Phase 4: SEO, sitemap, analytics, PWA
 - Polish: Accessibility audit, performance optimization

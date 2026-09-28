@@ -55,7 +55,14 @@ const colorClasses = {
   },
 };
 
-export function TechCard({ name, category, rating, years, color, index }: TechCardProps) {
+export function TechCard({
+  name,
+  category,
+  rating,
+  years,
+  color,
+  index,
+}: TechCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -100,7 +107,7 @@ export function TechCard({ name, category, rating, years, color, index }: TechCa
         "border border-zinc-800",
         "transition-all duration-300",
         colors.border,
-        colors.glow
+        colors.glow,
       )}
     >
       {/* Glow effect on hover */}
@@ -108,7 +115,7 @@ export function TechCard({ name, category, rating, years, color, index }: TechCa
         className={cn(
           "absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300",
           colors.bg,
-          isHovered && "opacity-100"
+          isHovered && "opacity-100",
         )}
       />
 
@@ -119,14 +126,10 @@ export function TechCard({ name, category, rating, years, color, index }: TechCa
         </div>
 
         {/* Name */}
-        <h3 className="text-lg font-bold text-zinc-50 mb-1">
-          {name}
-        </h3>
+        <h3 className="text-lg font-bold text-zinc-50 mb-1">{name}</h3>
 
         {/* Category */}
-        <p className="text-xs text-zinc-500 mb-3">
-          {category}
-        </p>
+        <p className="text-xs text-zinc-500 mb-3">{category}</p>
 
         {/* Rating */}
         <div className="flex gap-1 mb-3">
@@ -135,7 +138,7 @@ export function TechCard({ name, category, rating, years, color, index }: TechCa
               key={i}
               className={cn(
                 "text-lg",
-                i < rating ? colors.text : "text-zinc-700"
+                i < rating ? colors.text : "text-zinc-700",
               )}
             >
               ★
@@ -144,9 +147,7 @@ export function TechCard({ name, category, rating, years, color, index }: TechCa
         </div>
 
         {/* Years */}
-        <p className="text-sm text-zinc-400">
-          {years} years
-        </p>
+        <p className="text-sm text-zinc-400">{years} years</p>
       </div>
     </motion.div>
   );

@@ -47,7 +47,9 @@ export function executeCommand(input: string): CommandOutput[] {
       return [{ type: "output", text: CONTACT_TEXT }];
     case "download-cv":
     case "cv":
-      return [{ type: "success", text: "CV download link will be available soon!" }];
+      return [
+        { type: "success", text: "CV download link will be available soon!" },
+      ];
     case "clear":
       return [{ type: "clear", text: "" }];
     case "exit":

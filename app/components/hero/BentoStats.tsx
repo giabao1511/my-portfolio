@@ -7,8 +7,10 @@ import { STATS } from "../../lib/constants";
 
 const colorClasses = {
   cyan: "border-accent-cyan/30 hover:border-accent-cyan/60 hover:shadow-glow-cyan",
-  violet: "border-accent-violet/30 hover:border-accent-violet/60 hover:shadow-glow-violet",
-  emerald: "border-accent-emerald/30 hover:border-accent-emerald/60 hover:shadow-glow-emerald",
+  violet:
+    "border-accent-violet/30 hover:border-accent-violet/60 hover:shadow-glow-violet",
+  emerald:
+    "border-accent-emerald/30 hover:border-accent-emerald/60 hover:shadow-glow-emerald",
 };
 
 const iconColorClasses = {
@@ -39,7 +41,7 @@ export function BentoStats() {
                 "bg-zinc-900/50 backdrop-blur-sm",
                 "border border-zinc-800",
                 "transition-all duration-300",
-                colorClasses[stat.color]
+                colorClasses[stat.color],
               )}
               variants={{
                 hidden: { opacity: 0, y: 30 },
@@ -57,7 +59,12 @@ export function BentoStats() {
             >
               {/* Icon */}
               <div className="mb-4">
-                <Icon className={cn("w-6 h-6 md:w-8 md:h-8", iconColorClasses[stat.color])} />
+                <Icon
+                  className={cn(
+                    "w-6 h-6 md:w-8 md:h-8",
+                    iconColorClasses[stat.color],
+                  )}
+                />
               </div>
 
               {/* Value */}
@@ -66,7 +73,9 @@ export function BentoStats() {
                   {stat.value}
                 </span>
                 {stat.unit && (
-                  <span className="text-lg md:text-xl text-zinc-400">{stat.unit}</span>
+                  <span className="text-lg md:text-xl text-zinc-400">
+                    {stat.unit}
+                  </span>
                 )}
               </div>
 
@@ -77,9 +86,12 @@ export function BentoStats() {
               <div
                 className={cn(
                   "absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none",
-                  stat.color === "cyan" && "bg-gradient-to-br from-accent-cyan/5 to-transparent",
-                  stat.color === "violet" && "bg-gradient-to-br from-accent-violet/5 to-transparent",
-                  stat.color === "emerald" && "bg-gradient-to-br from-accent-emerald/5 to-transparent"
+                  stat.color === "cyan" &&
+                    "bg-gradient-to-br from-accent-cyan/5 to-transparent",
+                  stat.color === "violet" &&
+                    "bg-gradient-to-br from-accent-violet/5 to-transparent",
+                  stat.color === "emerald" &&
+                    "bg-gradient-to-br from-accent-emerald/5 to-transparent",
                 )}
               />
             </motion.div>

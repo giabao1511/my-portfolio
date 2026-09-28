@@ -5,7 +5,11 @@ import { cn } from "../../lib/utils";
 
 const socialLinks = [
   { name: "GitHub", url: "https://github.com/giabao4123", icon: Code2 },
-  { name: "LinkedIn", url: "https://linkedin.com/in/giabao4123", icon: Network },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/giabao4123",
+    icon: Network,
+  },
   { name: "Email", url: "mailto:giabao712411@gmail.com", icon: Mail },
 ];
 
@@ -26,9 +30,7 @@ export function Footer() {
             <h3 className="text-xl font-bold text-zinc-50 mb-1">
               Chau Gia Bao
             </h3>
-            <p className="text-sm text-zinc-500">
-              Software Engineer
-            </p>
+            <p className="text-sm text-zinc-500">Software Engineer</p>
           </div>
 
           {/* Navigation */}
@@ -58,7 +60,7 @@ export function Footer() {
                     "w-10 h-10 rounded-full border border-zinc-800",
                     "flex items-center justify-center",
                     "text-zinc-400 hover:text-accent-cyan hover:border-accent-cyan/50",
-                    "transition-all duration-300"
+                    "transition-all duration-300",
                   )}
                   aria-label={link.name}
                 >

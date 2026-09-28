@@ -51,17 +51,19 @@ function ParticleSphere({ mousePosition }: ParticleSphereProps) {
     return new THREE.BufferAttribute(particles.colors, 3);
   }, [particles.colors]);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!meshRef.current) return;
 
     // Cap delta to prevent jumps
     const cappedDelta = Math.min(delta, 0.05);
 
     // Lerp mouse position for smooth trailing
-    mouseTarget.current.x += (mousePosition.x * viewport.width * 0.3 - mouseTarget.current.x) * 0.05;
-    mouseTarget.current.y += (mousePosition.y * viewport.height * 0.3 - mouseTarget.current.y) * 0.05;
+    mouseTarget.current.x +=
+      (mousePosition.x * viewport.width * 0.3 - mouseTarget.current.x) * 0.05;
+    mouseTarget.current.y +=
+      (mousePosition.y * viewport.height * 0.3 - mouseTarget.current.y) * 0.05;
 
-    // rotate based on time and mouse
+    // Rotate based on time and mouse
     meshRef.current.rotation.y += cappedDelta * 0.2;
     meshRef.current.rotation.x = mouseTarget.current.y * 0.3;
     meshRef.current.rotation.z = mouseTarget.current.x * 0.1;

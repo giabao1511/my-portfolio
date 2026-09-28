@@ -3,7 +3,11 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { backgroundVertexShader, backgroundFragmentShader, noiseGLSL } from "../../lib/shaders";
+import {
+  backgroundVertexShader,
+  backgroundFragmentShader,
+  noiseGLSL,
+} from "../../lib/shaders";
 import { useMousePosition } from "../../hooks/useMousePosition";
 
 export function ShaderPlane() {
@@ -23,12 +27,15 @@ export function ShaderPlane() {
       uColor2: { value: new THREE.Color("#18181b") },
       uColor3: { value: new THREE.Color("#06b6d4") },
     }),
-    []
+    [],
   );
 
   // Prepend noise functions to vertex shader
   const vertexShader = useMemo(() => noiseGLSL + backgroundVertexShader, []);
-  const fragmentShader = useMemo(() => noiseGLSL + backgroundFragmentShader, []);
+  const fragmentShader = useMemo(
+    () => noiseGLSL + backgroundFragmentShader,
+    [],
+  );
 
   useFrame((state) => {
     if (!materialRef.current) return;
@@ -36,12 +43,17 @@ export function ShaderPlane() {
     // Smooth velocity
     velocityRef.current.x = vx;
     velocityRef.current.y = vy;
-    smoothVelocity.current.x += (velocityRef.current.x - smoothVelocity.current.x) * 0.1;
-    smoothVelocity.current.y += (velocityRef.current.y - smoothVelocity.current.y) * 0.1;
+    smoothVelocity.current.x +=
+      (velocityRef.current.x - smoothVelocity.current.x) * 0.1;
+    smoothVelocity.current.y +=
+      (velocityRef.current.y - smoothVelocity.current.y) * 0.1;
 
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
     materialRef.current.uniforms.uMouse.value.set(x, y);
-    materialRef.current.uniforms.uVelocity.value.set(smoothVelocity.current.x, smoothVelocity.current.y);
+    materialRef.current.uniforms.uVelocity.value.set(
+      smoothVelocity.current.x,
+      smoothVelocity.current.y,
+    );
   });
 
   return (

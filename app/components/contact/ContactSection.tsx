@@ -38,9 +38,9 @@ export function ContactSection() {
               Let&apos;s Connect
             </h3>
             <p className="text-zinc-400 leading-relaxed">
-              I&apos;m always interested in hearing about new projects and opportunities.
-              Whether you have a question or just want to say hi, I&apos;ll try my best
-              to get back to you!
+              I&apos;m always interested in hearing about new projects and
+              opportunities. Whether you have a question or just want to say hi,
+              I&apos;ll try my best to get back to you!
             </p>
 
             <div className="space-y-4">

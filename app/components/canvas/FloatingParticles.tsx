@@ -12,7 +12,7 @@ interface ParticleConfig {
 
 // Seeded random number generator for deterministic particle positions
 function seededRandom(seed: number): () => number {
-  return function() {
+  return function () {
     seed = (seed * 9301 + 49297) % 233280;
     return seed / 233280;
   };

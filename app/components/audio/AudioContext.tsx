@@ -23,9 +23,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const audio = useAudioEngine();
 
   return (
-    <AudioContext.Provider value={audio}>
-      {children}
-    </AudioContext.Provider>
+    <AudioContext.Provider value={audio}>{children}</AudioContext.Provider>
   );
 }
 

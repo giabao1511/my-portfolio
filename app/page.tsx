@@ -20,14 +20,11 @@ function RecruiterModeView() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-8">
       <div className="max-w-3xl text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Chau Gia Bao
-        </h1>
-        <p className="text-xl text-accent-cyan mb-8">
-          Software Engineer
-        </p>
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">Chau Gia Bao</h1>
+        <p className="text-xl text-accent-cyan mb-8">Software Engineer</p>
         <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
-          Building high-performance web platforms with TypeScript, Next.js, and distributed systems architecture.
+          Building high-performance web platforms with TypeScript, Next.js, and
+          distributed systems architecture.
         </p>
         <a
           href="/resume.pdf"

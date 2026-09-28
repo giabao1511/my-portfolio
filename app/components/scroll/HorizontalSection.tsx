@@ -28,14 +28,17 @@ export function HorizontalSection({
 
     // Count children to calculate total width
     const childrenArray = Array.from(wrapper.children);
-    const totalWidth = childrenArray.length * cardWidth + (childrenArray.length - 1) * 32; // gap
+    const totalWidth =
+      childrenArray.length * cardWidth + (childrenArray.length - 1) * 32; // gap
 
     // Check if there's enough scroll distance
     const viewportWidth = window.innerWidth;
     const scrollDistance = Math.max(0, totalWidth - viewportWidth + 200);
 
     // Skip on mobile or reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReducedMotion || scrollDistance <= 0 || viewportWidth < 768) {
       return;
     }

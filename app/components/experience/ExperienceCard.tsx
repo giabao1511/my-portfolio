@@ -44,8 +44,8 @@ export function ExperienceCard({
     color === "cyan"
       ? "rgba(6,182,212,0.5)"
       : color === "violet"
-      ? "rgba(139,92,246,0.5)"
-      : "rgba(16,185,129,0.5)";
+        ? "rgba(139,92,246,0.5)"
+        : "rgba(16,185,129,0.5)";
 
   return (
     <motion.div
@@ -59,7 +59,7 @@ export function ExperienceCard({
         "border border-zinc-800",
         "transition-all duration-300",
         colors.border,
-        colors.glow
+        colors.glow,
       )}
     >
       {/* Timeline node indicator */}
@@ -67,7 +67,7 @@ export function ExperienceCard({
         className={cn(
           "absolute -left-3 top-8 w-6 h-6 rounded-full",
           "border-2 border-zinc-800 bg-zinc-950",
-          colors.text
+          colors.text,
         )}
         style={{
           boxShadow: `0 0 15px ${glowColor}`,
@@ -76,26 +76,32 @@ export function ExperienceCard({
 
       {/* Company & Period */}
       <div className="mb-4">
-        <span className={cn("text-xs font-medium tracking-wider uppercase", colors.text)}>
+        <span
+          className={cn(
+            "text-xs font-medium tracking-wider uppercase",
+            colors.text,
+          )}
+        >
           {period}
         </span>
       </div>
 
       {/* Role */}
-      <h3 className="text-xl font-bold text-zinc-50 mb-1">
-        {role}
-      </h3>
+      <h3 className="text-xl font-bold text-zinc-50 mb-1">{role}</h3>
 
       {/* Company */}
-      <p className="text-sm text-zinc-400 mb-4">
-        {company}
-      </p>
+      <p className="text-sm text-zinc-400 mb-4">{company}</p>
 
       {/* Achievements */}
       <ul className="space-y-2">
         {achievements.map((achievement, i) => (
           <li key={i} className="flex items-start gap-2 text-sm text-zinc-300">
-            <span className={cn("mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0", colors.text)} />
+            <span
+              className={cn(
+                "mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0",
+                colors.text,
+              )}
+            />
             {achievement}
           </li>
         ))}

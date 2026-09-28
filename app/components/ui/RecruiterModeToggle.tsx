@@ -19,11 +19,13 @@ export function RecruiterModeToggle() {
         "border backdrop-blur-sm",
         isEnabled
           ? "bg-accent-emerald/20 border-accent-emerald/50 text-accent-emerald"
-          : "bg-zinc-900/80 border-zinc-700 text-zinc-300 hover:border-zinc-500"
+          : "bg-zinc-900/80 border-zinc-700 text-zinc-300 hover:border-zinc-500",
       )}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={isEnabled ? "Switch to Interactive 3D mode" : "Switch to Recruiter Mode"}
+      aria-label={
+        isEnabled ? "Switch to Interactive 3D mode" : "Switch to Recruiter Mode"
+      }
     >
       <AnimatePresence mode="wait">
         {isEnabled ? (

@@ -38,9 +38,11 @@
 ### Task 1: Install Dependencies
 
 **Files:**
+
 - Modify: `package.json`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces: (none — just installs packages)
 
@@ -68,10 +70,12 @@ Run: `pnpm install`
 ### Task 2: Create LenisProvider
 
 **Files:**
+
 - Create: `app/components/scroll/LenisProvider.tsx`
 - Create: `app/hooks/useLenis.ts`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces:
   - `LenisProvider`: React component (wraps children in Lenis context)
@@ -174,9 +178,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 3: Create useMousePosition Hook
 
 **Files:**
+
 - Create: `app/hooks/useMousePosition.ts`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces:
   - `useMousePosition()`: hook returning `{ x: number; y: number; vx: number; vy: number }`
@@ -237,10 +243,12 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 4: Create TextScramble Hook and Component
 
 **Files:**
+
 - Create: `app/hooks/useTextScramble.ts`
 - Create: `app/components/effects/TextScramble.tsx`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces:
   - `useTextScramble(text: string, isActive: boolean): string`
@@ -253,7 +261,8 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 
 import { useEffect, useRef, useState } from "react";
 
-const CHARS = "!@#$%^&*()_+-=[]{}|;':\",./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const CHARS =
+  "!@#$%^&*()_+-=[]{}|;':\",./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 interface UseTextScrambleOptions {
   duration?: number;
@@ -263,7 +272,7 @@ interface UseTextScrambleOptions {
 export function useTextScramble(
   text: string,
   isActive: boolean,
-  options: UseTextScrambleOptions = {}
+  options: UseTextScrambleOptions = {},
 ): string {
   const { duration = 1000, scrambleSpeed = 30 } = options;
   const [displayText, setDisplayText] = useState(text);
@@ -304,7 +313,7 @@ export function useTextScramble(
         const speedFactor = Math.max(1, Math.floor(frame / 3));
         intervalRef.current = setTimeout(
           () => requestAnimationFrame(animate),
-          scrambleSpeed * speedFactor
+          scrambleSpeed * speedFactor,
         );
       }
     };
@@ -363,14 +372,17 @@ export function TextScramble({
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(element);
     return () => observer.disconnect();
   }, [triggerOnce, hasTriggered]);
 
-  const scrambledText = useTextScramble(text, isActive, { duration, scrambleSpeed });
+  const scrambledText = useTextScramble(text, isActive, {
+    duration,
+    scrambleSpeed,
+  });
 
   return (
     <span ref={ref} className={cn("inline-block font-mono", className)}>
@@ -402,9 +414,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 5: Integrate LenisProvider into Layout
 
 **Files:**
+
 - Modify: `app/layout.tsx`
 
 **Interfaces:**
+
 - Consumes: `LenisProvider` from `app/components/scroll/LenisProvider`
 - Produces: (modifies layout)
 
@@ -420,9 +434,7 @@ Wrap `{children}` in the body:
 
 ```tsx
 <body className="font-sans antialiased">
-  <LenisProvider>
-    {children}
-  </LenisProvider>
+  <LenisProvider>{children}</LenisProvider>
   <AnalyticsProvider />
 </body>
 ```
@@ -448,11 +460,13 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 6: Create GLSL Shaders
 
 **Files:**
+
 - Create: `app/lib/shaders/noise.glsl` (shared noise functions)
 - Create: `app/lib/shaders/background.vert` (vertex shader)
 - Create: `app/lib/shaders/background.frag` (fragment shader)
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces: GLSL shader strings exported as `noiseGLSL`, `backgroundVertexShader`, `backgroundFragmentShader`
 
@@ -693,9 +707,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 7: Create ShaderPlane Component
 
 **Files:**
+
 - Create: `app/components/canvas/ShaderPlane.tsx`
 
 **Interfaces:**
+
 - Consumes: `useMousePosition` from `app/hooks/useMousePosition`, shaders from `app/lib/shaders`
 - Produces: `ShaderPlane` — R3F mesh component with custom shader material
 
@@ -707,7 +723,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { backgroundVertexShader, backgroundFragmentShader, noiseGLSL } from "../../lib/shaders";
+import {
+  backgroundVertexShader,
+  backgroundFragmentShader,
+  noiseGLSL,
+} from "../../lib/shaders";
 import { useMousePosition } from "../../hooks/useMousePosition";
 
 export function ShaderPlane() {
@@ -728,12 +748,15 @@ export function ShaderPlane() {
       uColor2: { value: new THREE.Color("#18181b") },
       uColor3: { value: new THREE.Color("#06b6d4") },
     }),
-    []
+    [],
   );
 
   // Prepend noise functions to vertex shader
   const vertexShader = useMemo(() => noiseGLSL + backgroundVertexShader, []);
-  const fragmentShader = useMemo(() => noiseGLSL + backgroundFragmentShader, []);
+  const fragmentShader = useMemo(
+    () => noiseGLSL + backgroundFragmentShader,
+    [],
+  );
 
   useFrame((state) => {
     if (!materialRef.current) return;
@@ -741,12 +764,17 @@ export function ShaderPlane() {
     // Smooth velocity
     velocityRef.current.x = vx;
     velocityRef.current.y = vy;
-    smoothVelocity.current.x += (velocityRef.current.x - smoothVelocity.current.x) * 0.1;
-    smoothVelocity.current.y += (velocityRef.current.y - smoothVelocity.current.y) * 0.1;
+    smoothVelocity.current.x +=
+      (velocityRef.current.x - smoothVelocity.current.x) * 0.1;
+    smoothVelocity.current.y +=
+      (velocityRef.current.y - smoothVelocity.current.y) * 0.1;
 
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
     materialRef.current.uniforms.uMouse.value.set(x, y);
-    materialRef.current.uniforms.uVelocity.value.set(smoothVelocity.current.x, smoothVelocity.current.y);
+    materialRef.current.uniforms.uVelocity.value.set(
+      smoothVelocity.current.x,
+      smoothVelocity.current.y,
+    );
   });
 
   return (
@@ -779,9 +807,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 8: Create FloatingParticles Component
 
 **Files:**
+
 - Create: `app/components/canvas/FloatingParticles.tsx`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces: `FloatingParticles` — R3F Points with twinkling effect
 
@@ -836,12 +866,12 @@ export function FloatingParticles({ count = 800 }: { count?: number }) {
 
   const positionAttribute = useMemo(
     () => new THREE.BufferAttribute(positions, 3),
-    [positions]
+    [positions],
   );
 
   const sizeAttribute = useMemo(
     () => new THREE.BufferAttribute(sizes, 1),
-    [sizes]
+    [sizes],
   );
 
   useFrame((state) => {
@@ -901,9 +931,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 9: Create Effects Pipeline (PostProcessing)
 
 **Files:**
+
 - Create: `app/components/canvas/Effects.tsx`
 
 **Interfaces:**
+
 - Consumes: `@react-three/postprocessing` effects
 - Produces: `Effects` — EffectComposer with Bloom, ChromaticAberration, Noise, Vignette
 
@@ -912,7 +944,12 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ```tsx
 "use client";
 
-import { Bloom, ChromaticAberration, Noise, Vignette } from "@react-three/postprocessing";
+import {
+  Bloom,
+  ChromaticAberration,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { Vector2 } from "three";
 
@@ -950,9 +987,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 10: Create Scene Wrapper
 
 **Files:**
+
 - Create: `app/components/canvas/Scene.tsx`
 
 **Interfaces:**
+
 - Consumes: `ShaderPlane`, `FloatingParticles`, `Effects`
 - Produces: `Scene` — fixed-position R3F Canvas covering viewport
 
@@ -969,10 +1008,7 @@ import { Effects } from "./Effects";
 
 export function Scene() {
   return (
-    <div
-      className="fixed inset-0 z-0"
-      style={{ pointerEvents: "none" }}
-    >
+    <div className="fixed inset-0 z-0" style={{ pointerEvents: "none" }}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
         dpr={[1, 1.5]}
@@ -1010,9 +1046,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 11: Integrate Scene into Page
 
 **Files:**
+
 - Modify: `app/page.tsx`
 
 **Interfaces:**
+
 - Consumes: `Scene` from `app/components/canvas/Scene`
 - Produces: (modifies page)
 
@@ -1061,9 +1099,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 12: Create BentoCard Component
 
 **Files:**
+
 - Create: `app/components/effects/BentoCard.tsx`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces: `BentoCard` — glassmorphism card with spotlight and 3D tilt
 
@@ -1086,17 +1126,20 @@ const glowMap = {
   cyan: {
     border: "border-accent-cyan/30 hover:border-accent-cyan/60",
     shadow: "hover:shadow-glow-cyan",
-    spotlight: "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(6, 182, 212, 0.15) 0%, transparent 50%)",
+    spotlight:
+      "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(6, 182, 212, 0.15) 0%, transparent 50%)",
   },
   violet: {
     border: "border-accent-violet/30 hover:border-accent-violet/60",
     shadow: "hover:shadow-glow-violet",
-    spotlight: "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
+    spotlight:
+      "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.15) 0%, transparent 50%)",
   },
   emerald: {
     border: "border-accent-emerald/30 hover:border-accent-emerald/60",
     shadow: "hover:shadow-glow-emerald",
-    spotlight: "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
+    spotlight:
+      "radial-gradient(ellipse at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
   },
 };
 
@@ -1126,8 +1169,10 @@ export function BentoCard({
     // Calculate tilt
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateY = ((e.clientX - rect.left - centerX) / centerX) * tiltStrength;
-    const rotateX = ((centerY - (e.clientY - rect.top)) / centerY) * tiltStrength;
+    const rotateY =
+      ((e.clientX - rect.left - centerX) / centerX) * tiltStrength;
+    const rotateX =
+      ((centerY - (e.clientY - rect.top)) / centerY) * tiltStrength;
 
     setTilt({ x: rotateX, y: rotateY });
   };
@@ -1148,11 +1193,13 @@ export function BentoCard({
         glow.border,
         glow.shadow,
         isHovered && "scale-[1.02]",
-        className
+        className,
       )}
       style={{
         transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
+        transition: isHovered
+          ? "transform 0.1s ease-out"
+          : "transform 0.5s ease-out",
         willChange: "transform",
       }}
       onMouseMove={handleMouseMove}
@@ -1172,10 +1219,10 @@ export function BentoCard({
       <div
         className={cn(
           "absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300",
-          "bg-gradient-to-br from-white/10 via-transparent to-transparent"
+          "bg-gradient-to-br from-white/10 via-transparent to-transparent",
         )}
         style={{
-          opacity: isHovered ? Math.abs(tilt.y) / tiltStrength * 0.3 : 0,
+          opacity: isHovered ? (Math.abs(tilt.y) / tiltStrength) * 0.3 : 0,
           transform: `translateX(${tilt.y * 0.5}px) translateY(${-tilt.x * 0.5}px)`,
         }}
       />
@@ -1201,10 +1248,12 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 13: Upgrade Cursor Component
 
 **Files:**
+
 - Modify: `app/components/ui/MagneticCursor.tsx` → move to `app/components/effects/Cursor.tsx`
 - Delete: `app/components/ui/MagneticCursor.tsx`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces: `Cursor` — enhanced cursor with blend mode, trail, and magnetic snap
 
@@ -1257,7 +1306,9 @@ export function Cursor() {
       lastMoveTime.current = now;
 
       // Add trail on fast movement
-      const speed = Math.sqrt(velocity.current.x ** 2 + velocity.current.y ** 2);
+      const speed = Math.sqrt(
+        velocity.current.x ** 2 + velocity.current.y ** 2,
+      );
       if (speed > 0.5) {
         addTrailPoint(e.clientX, e.clientY);
       }
@@ -1318,7 +1369,7 @@ export function Cursor() {
           if (dots[i]) {
             dots[i].setAttribute(
               "style",
-              `transform: translate(${point.x}px, ${point.y}px) translate(-50%, -50%) scale(${point.opacity}); opacity: ${point.opacity}`
+              `transform: translate(${point.x}px, ${point.y}px) translate(-50%, -50%) scale(${point.opacity}); opacity: ${point.opacity}`,
             );
           }
         });
@@ -1373,10 +1424,12 @@ export function Cursor() {
           "bg-white",
           !isHovering && !isClicking && "w-3 h-3",
           // Hovering
-          isHovering && !isClicking && "w-12 h-12 border-2 border-white bg-transparent",
+          isHovering &&
+            !isClicking &&
+            "w-12 h-12 border-2 border-white bg-transparent",
           // Clicking
           isClicking && "w-8 h-8 scale-75",
-          "hidden md:block"
+          "hidden md:block",
         )}
       />
     </>
@@ -1387,15 +1440,19 @@ export function Cursor() {
 - [ ] **Step 2: Update imports in app/page.tsx**
 
 Change:
+
 ```tsx
 import { MagneticCursor } from "./components/ui/MagneticCursor";
 ```
+
 To:
+
 ```tsx
 import { Cursor } from "./components/effects/Cursor";
 ```
 
 And in the JSX:
+
 ```tsx
 <Cursor />
 ```
@@ -1426,10 +1483,12 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 14: Create HorizontalSection for Experience
 
 **Files:**
+
 - Create: `app/components/scroll/HorizontalSection.tsx`
 - Modify: `app/components/experience/ExperienceSection.tsx`
 
 **Interfaces:**
+
 - Consumes: `useLenis` from `app/hooks/useLenis`
 - Produces: `HorizontalSection` — pinned horizontal scroll wrapper
 
@@ -1473,7 +1532,9 @@ export function HorizontalSection({
     const scrollDistance = Math.max(0, totalWidth - viewportWidth + 200);
 
     // Skip on mobile or reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (prefersReducedMotion || scrollDistance <= 0 || viewportWidth < 768) {
       return;
     }
@@ -1569,7 +1630,9 @@ interface ExperienceTimelineProps {
   horizontal?: boolean;
 }
 
-export function ExperienceTimeline({ horizontal = false }: ExperienceTimelineProps) {
+export function ExperienceTimeline({
+  horizontal = false,
+}: ExperienceTimelineProps) {
   // Add horizontal class when prop is true
   return (
     <div className={cn("flex gap-8", horizontal && "flex-row items-start")}>
@@ -1600,9 +1663,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 15: Create AudioEngine Hook
 
 **Files:**
+
 - Create: `app/hooks/useAudioEngine.ts`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces:
   - `useAudioEngine()`: hook returning `{ isEnabled, isMuted, toggle, playHover, playClick }`
@@ -1632,7 +1697,11 @@ export function useAudioEngine(): AudioEngine {
   const initAudio = useCallback(() => {
     if (audioContextRef.current) return audioContextRef.current;
 
-    const ctx = new (window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    const ctx = new (
+      window.AudioContext ||
+      (window as typeof window & { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext
+    )();
     const masterGain = ctx.createGain();
     masterGain.connect(ctx.destination);
     masterGain.gain.value = 0; // Start muted
@@ -1764,9 +1833,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const audio = useAudioEngine();
 
   return (
-    <AudioContext.Provider value={audio}>
-      {children}
-    </AudioContext.Provider>
+    <AudioContext.Provider value={audio}>{children}</AudioContext.Provider>
   );
 }
 
@@ -1798,7 +1865,7 @@ export function SoundToggle() {
         isMuted
           ? "bg-zinc-900/80 border-zinc-700 text-zinc-500"
           : "bg-accent-cyan/10 border-accent-cyan/50 text-accent-cyan",
-        "hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-cyan/50"
+        "hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent-cyan/50",
       )}
       aria-label={isMuted ? "Enable sound" : "Mute sound"}
     >
@@ -1826,7 +1893,7 @@ export function SoundToggle() {
               className={cn(
                 "w-0.5 bg-accent-cyan rounded-full",
                 "animate-[soundWave_0.5s_ease-in-out_infinite]",
-                isEnabled && !isMuted && `animate-delay-${i * 100}`
+                isEnabled && !isMuted && `animate-delay-${i * 100}`,
               )}
               style={{
                 height: `${6 + i * 3}px`,
@@ -1845,8 +1912,13 @@ Add to `app/globals.css`:
 
 ```css
 @keyframes soundWave {
-  0%, 100% { transform: scaleY(0.5); }
-  50% { transform: scaleY(1); }
+  0%,
+  100% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 ```
 
@@ -1864,9 +1936,7 @@ Wrap in AudioProvider:
 ```tsx
 <body className="font-sans antialiased">
   <AudioProvider>
-    <LenisProvider>
-      {children}
-    </LenisProvider>
+    <LenisProvider>{children}</LenisProvider>
     <SoundToggle />
   </AudioProvider>
   <AnalyticsProvider />
@@ -1894,9 +1964,11 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 16: Add Reduced Motion Support
 
 **Files:**
+
 - Modify: `app/globals.css`
 
 **Interfaces:**
+
 - Consumes: (none)
 - Produces: (enhanced globals.css)
 
@@ -1950,6 +2022,7 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ### Task 17: Final Verification
 
 **Files:**
+
 - (all modified files)
 
 - [ ] **Step 1: Run full TypeScript check**
@@ -1970,6 +2043,7 @@ Expected: Build succeeds
 - [ ] **Step 4: Run dev server and manual verification**
 
 Run: `pnpm dev` and open browser:
+
 - [ ] 3D shader background animates smoothly
 - [ ] Particles twinkle with bloom effect
 - [ ] Lenis smooth scroll works
@@ -1999,24 +2073,24 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 
 ## Summary
 
-| Task | Component | Files Created/Modified |
-|------|-----------|------------------------|
-| 1 | Install deps | `package.json` |
-| 2 | LenisProvider | `LenisProvider.tsx`, `useLenis.ts` |
-| 3 | useMousePosition | `useMousePosition.ts` |
-| 4 | TextScramble | `useTextScramble.ts`, `TextScramble.tsx` |
-| 5 | Layout integration | `layout.tsx` |
-| 6 | GLSL shaders | `noise.glsl`, `*.vert`, `*.frag`, `index.ts` |
-| 7 | ShaderPlane | `ShaderPlane.tsx` |
-| 8 | FloatingParticles | `FloatingParticles.tsx` |
-| 9 | Effects pipeline | `Effects.tsx` |
-| 10 | Scene wrapper | `Scene.tsx` |
-| 11 | Page integration | `page.tsx` |
-| 12 | BentoCard | `BentoCard.tsx` |
-| 13 | Cursor upgrade | `Cursor.tsx`, remove `MagneticCursor.tsx` |
-| 14 | HorizontalSection | `HorizontalSection.tsx`, `ExperienceSection.tsx` |
-| 15 | Audio engine | `useAudioEngine.ts`, `AudioContext.tsx`, `SoundToggle.tsx` |
-| 16 | Reduced motion | `globals.css` |
-| 17 | Final verification | (all files) |
+| Task | Component          | Files Created/Modified                                     |
+| ---- | ------------------ | ---------------------------------------------------------- |
+| 1    | Install deps       | `package.json`                                             |
+| 2    | LenisProvider      | `LenisProvider.tsx`, `useLenis.ts`                         |
+| 3    | useMousePosition   | `useMousePosition.ts`                                      |
+| 4    | TextScramble       | `useTextScramble.ts`, `TextScramble.tsx`                   |
+| 5    | Layout integration | `layout.tsx`                                               |
+| 6    | GLSL shaders       | `noise.glsl`, `*.vert`, `*.frag`, `index.ts`               |
+| 7    | ShaderPlane        | `ShaderPlane.tsx`                                          |
+| 8    | FloatingParticles  | `FloatingParticles.tsx`                                    |
+| 9    | Effects pipeline   | `Effects.tsx`                                              |
+| 10   | Scene wrapper      | `Scene.tsx`                                                |
+| 11   | Page integration   | `page.tsx`                                                 |
+| 12   | BentoCard          | `BentoCard.tsx`                                            |
+| 13   | Cursor upgrade     | `Cursor.tsx`, remove `MagneticCursor.tsx`                  |
+| 14   | HorizontalSection  | `HorizontalSection.tsx`, `ExperienceSection.tsx`           |
+| 15   | Audio engine       | `useAudioEngine.ts`, `AudioContext.tsx`, `SoundToggle.tsx` |
+| 16   | Reduced motion     | `globals.css`                                              |
+| 17   | Final verification | (all files)                                                |
 
 **Total: 17 tasks, ~4 phases**

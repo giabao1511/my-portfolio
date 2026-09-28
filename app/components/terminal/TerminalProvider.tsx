@@ -1,13 +1,22 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  type ReactNode,
+} from "react";
 import { Terminal } from "./Terminal";
 
 interface TerminalContextValue {
   openTerminal: () => void;
 }
 
-const TerminalContext = createContext<TerminalContextValue>({ openTerminal: () => {} });
+const TerminalContext = createContext<TerminalContextValue>({
+  openTerminal: () => {},
+});
 
 export function useTerminal() {
   return useContext(TerminalContext);
@@ -20,7 +29,7 @@ export function TerminalProvider({ children }: { children: ReactNode }) {
   const closeTerminal = useCallback(() => setIsTerminalOpen(false), []);
   const toggleTerminal = useCallback(
     () => setIsTerminalOpen((prev) => !prev),
-    []
+    [],
   );
 
   // Global keyboard shortcut
