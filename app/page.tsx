@@ -1,3 +1,5 @@
+"use client";
+
 import { HeroSection } from "./components/hero/HeroSection";
 import { Cursor } from "./components/effects/Cursor";
 import { Scene } from "./components/canvas/Scene";
