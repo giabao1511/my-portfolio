@@ -2,75 +2,62 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
 import { Send, CheckCircle, Loader2 } from "lucide-react";
 import { cn } from "../../lib/utils";
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  subject: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-}
+type ContactFormData = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const validate = (): boolean => {
-    const newErrors: FormErrors = {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
 
-    if (!formData.name.trim() || formData.name.length < 2) {
-      newErrors.name = "Name must be at least 2 characters";
-    }
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
+      const result = await response.json();
 
-    if (!formData.message.trim() || formData.message.length < 10) {
-      newErrors.message = "Message must be at least 10 characters";
-    }
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+      toast.success("Message received!", {
+        description: "I will get back to you within 24 hours.",
+        duration: 5000,
+      });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validate()) return;
-
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubmitting(false);
-    setIsSuccess(true);
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
-    if (errors[name as keyof FormErrors]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
+      setIsSuccess(true);
+      reset();
+    } catch (error) {
+      toast.error("Failed to send message", {
+        description: error instanceof Error ? error.message : "Please try again later.",
+        duration: 5000,
+      });
     }
   };
 
@@ -89,9 +76,7 @@ export function ContactForm() {
         >
           <CheckCircle className="w-8 h-8 text-accent-emerald" />
         </motion.div>
-        <h3 className="text-2xl font-bold text-zinc-50 mb-2">
-          Message Sent!
-        </h3>
+        <h3 className="text-2xl font-bold text-zinc-50 mb-2">Message Sent!</h3>
         <p className="text-zinc-400">
           Thanks for reaching out. I&apos;ll get back to you soon.
         </p>
@@ -100,22 +85,25 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-2">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-zinc-300 mb-2"
+        >
           Name <span className="text-accent-cyan">*</span>
         </label>
         <input
           type="text"
           id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
+          {...register("name")}
           className={cn(
             "w-full px-4 py-3 rounded-xl bg-zinc-900/50 border text-zinc-50",
             "focus:outline-none focus:ring-2 focus:ring-accent-cyan/50 transition-all",
-            errors.name ? "border-red-500" : "border-zinc-800 focus:border-accent-cyan"
+            errors.name
+              ? "border-red-500"
+              : "border-zinc-800 focus:border-accent-cyan",
           )}
           placeholder="Your name"
         />
@@ -127,7 +115,7 @@ export function ContactForm() {
               exit={{ opacity: 0, y: -10 }}
               className="mt-1 text-sm text-red-400"
             >
-              {errors.name}
+              {errors.name.message}
             </motion.p>
           )}
         </AnimatePresence>
@@ -135,19 +123,22 @@ export function ContactForm() {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-2">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-zinc-300 mb-2"
+        >
           Email <span className="text-accent-cyan">*</span>
         </label>
         <input
           type="email"
           id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
+          {...register("email")}
           className={cn(
             "w-full px-4 py-3 rounded-xl bg-zinc-900/50 border text-zinc-50",
             "focus:outline-none focus:ring-2 focus:ring-accent-cyan/50 transition-all",
-            errors.email ? "border-red-500" : "border-zinc-800 focus:border-accent-cyan"
+            errors.email
+              ? "border-red-500"
+              : "border-zinc-800 focus:border-accent-cyan",
           )}
           placeholder="your.email@example.com"
         />
@@ -159,7 +150,7 @@ export function ContactForm() {
               exit={{ opacity: 0, y: -10 }}
               className="mt-1 text-sm text-red-400"
             >
-              {errors.email}
+              {errors.email.message}
             </motion.p>
           )}
         </AnimatePresence>
@@ -167,15 +158,16 @@ export function ContactForm() {
 
       {/* Subject */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-zinc-300 mb-2">
+        <label
+          htmlFor="subject"
+          className="block text-sm font-medium text-zinc-300 mb-2"
+        >
           Subject
         </label>
         <input
           type="text"
           id="subject"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
+          {...register("subject")}
           className="w-full px-4 py-3 rounded-xl bg-zinc-900/50 border border-zinc-800 text-zinc-50 focus:outline-none focus:ring-2 focus:ring-accent-cyan/50 focus:border-accent-cyan transition-all"
           placeholder="What's this about?"
         />
@@ -183,19 +175,22 @@ export function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-zinc-300 mb-2">
+        <label
+          htmlFor="message"
+          className="block text-sm font-medium text-zinc-300 mb-2"
+        >
           Message <span className="text-accent-cyan">*</span>
         </label>
         <textarea
           id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
+          {...register("message")}
           rows={5}
           className={cn(
             "w-full px-4 py-3 rounded-xl bg-zinc-900/50 border text-zinc-50 resize-none",
             "focus:outline-none focus:ring-2 focus:ring-accent-cyan/50 transition-all",
-            errors.message ? "border-red-500" : "border-zinc-800 focus:border-accent-cyan"
+            errors.message
+              ? "border-red-500"
+              : "border-zinc-800 focus:border-accent-cyan",
           )}
           placeholder="Tell me about your project..."
         />
@@ -207,7 +202,7 @@ export function ContactForm() {
               exit={{ opacity: 0, y: -10 }}
               className="mt-1 text-sm text-red-400"
             >
-              {errors.message}
+              {errors.message.message}
             </motion.p>
           )}
         </AnimatePresence>
@@ -220,7 +215,7 @@ export function ContactForm() {
         className={cn(
           "w-full py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2",
           "bg-accent-cyan text-zinc-950 hover:shadow-glow-cyan",
-          isSubmitting && "opacity-70 cursor-not-allowed"
+          isSubmitting && "opacity-70 cursor-not-allowed",
         )}
       >
         {isSubmitting ? (
