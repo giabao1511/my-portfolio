@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Toaster } from "sonner";
 import { AnalyticsProvider } from "./components/analytics";
 import { LenisProvider } from "./components/scroll/LenisProvider";
 import { AudioProvider } from "./components/audio/AudioContext";
@@ -20,6 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://giabao.dev"),
   title: {
     default: "Chau Gia Bao | Software Engineer",
     template: "%s | Chau Gia Bao",
@@ -90,6 +92,7 @@ export default function RootLayout({
           </AudioProvider>
         </RecruiterModeProvider>
         <AnalyticsProvider />
+        <Toaster position="bottom-right" richColors closeButton />
       </body>
     </html>
   );
