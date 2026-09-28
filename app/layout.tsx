@@ -4,6 +4,7 @@ import { AnalyticsProvider } from "./components/analytics";
 import { LenisProvider } from "./components/scroll/LenisProvider";
 import { AudioProvider } from "./components/audio/AudioContext";
 import { SoundToggle } from "./components/audio/SoundToggle";
+import { RecruiterModeProvider } from "./contexts/RecruiterModeContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -75,12 +76,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased">
-        <AudioProvider>
-          <LenisProvider>
-            {children}
-          </LenisProvider>
-          <SoundToggle />
-        </AudioProvider>
+        <RecruiterModeProvider>
+          <AudioProvider>
+            <LenisProvider>{children}</LenisProvider>
+            <SoundToggle />
+          </AudioProvider>
+        </RecruiterModeProvider>
         <AnalyticsProvider />
       </body>
     </html>
