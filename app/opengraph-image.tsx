@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export async function GET(request: NextRequest) {
+export default async function Image(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
   const name = searchParams.get("name") || "Chau Gia Bao";
