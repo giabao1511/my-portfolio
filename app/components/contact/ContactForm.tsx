@@ -55,7 +55,8 @@ export function ContactForm() {
       reset();
     } catch (error) {
       toast.error("Failed to send message", {
-        description: error instanceof Error ? error.message : "Please try again later.",
+        description:
+          error instanceof Error ? error.message : "Please try again later.",
         duration: 5000,
       });
     }

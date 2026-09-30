@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     if (!result.success) {
       return NextResponse.json(
         { error: "Validation failed", details: result.error.flatten() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,17 +24,19 @@ export async function POST(request: Request) {
     const { RESEND_API_KEY, CONTACT_EMAIL } = process.env;
 
     if (!RESEND_API_KEY || !CONTACT_EMAIL) {
-      console.error("Missing RESEND_API_KEY or CONTACT_EMAIL environment variables");
+      console.error(
+        "Missing RESEND_API_KEY or CONTACT_EMAIL environment variables",
+      );
       return NextResponse.json(
         { error: "Server configuration error" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        Authorization: `Bearer ${RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -58,19 +60,19 @@ export async function POST(request: Request) {
       console.error("Resend API error:", errorData);
       return NextResponse.json(
         { error: "Failed to send email" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     return NextResponse.json(
       { success: true, message: "Email sent successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Contact API error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

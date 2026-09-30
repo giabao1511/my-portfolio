@@ -35,6 +35,7 @@
 ### Task 1: Install Dependencies
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Step 1: Install dependencies**
@@ -46,6 +47,7 @@ Run: `pnpm add zod react-hook-form sonner && pnpm add -D @types/node`
 ### Task 2: Create API Route with Resend
 
 **Files:**
+
 - Create: `app/api/contact/route.ts`
 - Create: `.env.local.example`
 
@@ -72,7 +74,7 @@ export async function POST(request: Request) {
     if (!result.success) {
       return NextResponse.json(
         { error: "Validation failed", details: result.error.flatten() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -80,17 +82,19 @@ export async function POST(request: Request) {
     const { RESEND_API_KEY, CONTACT_EMAIL } = process.env;
 
     if (!RESEND_API_KEY || !CONTACT_EMAIL) {
-      console.error("Missing RESEND_API_KEY or CONTACT_EMAIL environment variables");
+      console.error(
+        "Missing RESEND_API_KEY or CONTACT_EMAIL environment variables",
+      );
       return NextResponse.json(
         { error: "Server configuration error" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        Authorization: `Bearer ${RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -114,19 +118,19 @@ export async function POST(request: Request) {
       console.error("Resend API error:", errorData);
       return NextResponse.json(
         { error: "Failed to send email" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     return NextResponse.json(
       { success: true, message: "Email sent successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Contact API error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -156,6 +160,7 @@ git commit -m "feat: add contact form API route with Resend"
 ### Task 3: Add Sonner Provider to Layout
 
 **Files:**
+
 - Modify: `app/layout.tsx`
 
 - [ ] **Step 1: Read current layout.tsx**
@@ -180,6 +185,7 @@ git commit -m "feat: add Sonner toaster provider to layout"
 ### Task 4: Refactor ContactForm with Zod + React Hook Form + Sonner
 
 **Files:**
+
 - Modify: `app/components/contact/ContactForm.tsx`
 
 - [ ] **Step 1: Write the new ContactForm implementation**
@@ -440,6 +446,7 @@ git commit -m "feat: refactor ContactForm with Zod, React Hook Form, and Sonner"
 ### Task 5: Verify Build
 
 **Files:**
+
 - None (verification only)
 
 - [ ] **Step 1: Run typecheck**
@@ -469,19 +476,20 @@ git commit -m "feat: complete contact form with real email dispatch
 
 ## Summary
 
-| Task | Description |
-|------|-------------|
-| 1 | Install dependencies (zod, react-hook-form, sonner, @hookform/resolvers) |
-| 2 | Create API route at app/api/contact/route.ts with Resend |
-| 3 | Add Sonner toaster to layout.tsx |
-| 4 | Refactor ContactForm.tsx with Zod + React Hook Form + Sonner |
-| 5 | Verify build passes |
+| Task | Description                                                              |
+| ---- | ------------------------------------------------------------------------ |
+| 1    | Install dependencies (zod, react-hook-form, sonner, @hookform/resolvers) |
+| 2    | Create API route at app/api/contact/route.ts with Resend                 |
+| 3    | Add Sonner toaster to layout.tsx                                         |
+| 4    | Refactor ContactForm.tsx with Zod + React Hook Form + Sonner             |
+| 5    | Verify build passes                                                      |
 
 ---
 
 ## Setup Instructions for User
 
 After merging, the user needs to:
+
 1. Copy `.env.local.example` to `.env.local`
 2. Get a Resend API key from https://resend.com
 3. Add `RESEND_API_KEY` and `CONTACT_EMAIL` to `.env.local`
