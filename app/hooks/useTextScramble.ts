@@ -22,6 +22,7 @@ export function useTextScramble(
 
   useEffect(() => {
     if (!isActive) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional reset on deactivation
       setDisplayText(text);
       return;
     }

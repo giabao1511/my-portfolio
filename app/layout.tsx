@@ -60,6 +60,7 @@ export const metadata: Metadata = {
     title: "Chau Gia Bao | Software Engineer",
     description:
       "Software Engineer specializing in high-performance web platforms.",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

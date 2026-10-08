@@ -1,5 +1,6 @@
 export interface CommandOutput {
-  type: "input" | "output" | "error" | "success" | "clear" | "exit";
+  type:
+    "input" | "output" | "error" | "success" | "clear" | "exit" | "download";
   text: string;
 }
 
@@ -8,14 +9,14 @@ const HELP_TEXT = `Available commands:
   about       - About bao
   skills      - View tech skills
   contact     - Contact information
-  download-cv - Download CV (coming soon)
+  download-cv - Download CV
   clear       - Clear terminal
   exit        - Close terminal`;
 
 const ABOUT_TEXT = `Chau Gia Bao
 Software Engineer specializing in high-performance web platforms,
 TypeScript ecosystem, Next.js, and distributed systems.
-4+ years of hands-on experience across B2B SaaS, E-Commerce, and FinTech.`;
+5+ years of hands-on experience across B2B SaaS, E-Commerce, and FinTech.`;
 
 const SKILLS_TEXT = `Tech Arsenal:
   Languages: TypeScript, JavaScript, HTML5, CSS3
@@ -29,8 +30,8 @@ const SKILLS_TEXT = `Tech Arsenal:
 const CONTACT_TEXT = `Email:    giabao712411@gmail.com
 Phone:    +84 339 253 073
 Location: Ho Chi Minh City, Vietnam
-LinkedIn: https://linkedin.com/in/giabao4123
-GitHub:   https://github.com/giabao4123`;
+LinkedIn: https://www.linkedin.com/in/bao-chau-gia-a2761a244
+GitHub:   https://github.com/giabao1511`;
 
 export function executeCommand(input: string): CommandOutput[] {
   const cmd = input.trim().toLowerCase();
@@ -48,7 +49,8 @@ export function executeCommand(input: string): CommandOutput[] {
     case "download-cv":
     case "cv":
       return [
-        { type: "success", text: "CV download link will be available soon!" },
+        { type: "success", text: "Downloading CV..." },
+        { type: "download", text: "/resume.pdf" },
       ];
     case "clear":
       return [{ type: "clear", text: "" }];

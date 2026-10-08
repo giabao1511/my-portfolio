@@ -54,12 +54,15 @@ export function ContactSection() {
                 <span>giabao712411@gmail.com</span>
               </a>
 
-              <div className="flex items-center gap-4 text-zinc-500">
+              <a
+                href="tel:+84339253073"
+                className="flex items-center gap-4 text-zinc-300 hover:text-accent-cyan transition-colors"
+              >
                 <div className="w-12 h-12 rounded-xl bg-zinc-900/50 border border-zinc-800 flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-zinc-500" />
+                  <Phone className="w-5 h-5 text-accent-cyan" />
                 </div>
                 <span>+84 339 253 073</span>
-              </div>
+              </a>
 
               <div className="flex items-center gap-4 text-zinc-500">
                 <div className="w-12 h-12 rounded-xl bg-zinc-900/50 border border-zinc-800 flex items-center justify-center">

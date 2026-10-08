@@ -20,7 +20,7 @@ function seededRandom(seed: number): () => number {
 
 export function FloatingParticles({ count = 800 }: { count?: number }) {
   // Generate all data once with useMemo
-  const { geometry, configs, sizeAttr } = useMemo(() => {
+  const { geometry, configs, sizeArray } = useMemo(() => {
     const random = seededRandom(42);
     const particleConfigs: ParticleConfig[] = [];
     const pos = new Float32Array(count * 3);
@@ -46,10 +46,11 @@ export function FloatingParticles({ count = 800 }: { count?: number }) {
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
 
-    const sizeAttr = new THREE.BufferAttribute(new Float32Array(count), 1);
-    geo.setAttribute("aSize", sizeAttr);
+    // Store size array separately to allow mutation
+    const sizeArray = new Float32Array(count);
+    geo.setAttribute("aSize", new THREE.BufferAttribute(sizeArray, 1));
 
-    return { geometry: geo, configs: particleConfigs, sizeAttr };
+    return { geometry: geo, configs: particleConfigs, sizeArray };
   }, [count]);
 
   useFrame((state) => {
@@ -58,9 +59,14 @@ export function FloatingParticles({ count = 800 }: { count?: number }) {
     for (let i = 0; i < count; i++) {
       const config = configs[i];
       const twinkle = Math.sin(time * config.speed + config.phase) * 0.5 + 0.5;
-      sizeAttr.array[i] = config.scale * (0.5 + twinkle * 0.5);
+      // eslint-disable-next-line react-hooks/immutability -- THREE.js BufferAttribute requires direct array mutation
+      sizeArray[i] = config.scale * (0.5 + twinkle * 0.5);
     }
-    sizeAttr.needsUpdate = true;
+    // Trigger update on the geometry's attribute
+    const sizeAttr = geometry.getAttribute("aSize");
+    if (sizeAttr) {
+      (sizeAttr as THREE.BufferAttribute).needsUpdate = true;
+    }
   });
 
   return (

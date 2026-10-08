@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Zap, Heart } from "lucide-react";
-import { cn } from "../../lib/utils";
+import Image from "next/image";
+import { MapPin, Zap } from "lucide-react";
+import { cn } from "@/app/lib/utils";
 
 const values = ["Clean Architecture", "Type-Safe Code", "Performance First"];
 
@@ -39,7 +40,7 @@ export function AboutSection() {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Image placeholder */}
+          {/* Left: Profile Image */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -47,13 +48,14 @@ export function AboutSection() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-square max-w-md mx-auto rounded-2xl bg-gradient-to-br from-accent-cyan/20 via-accent-violet/20 to-accent-emerald/20 border border-zinc-800 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet flex items-center justify-center mb-4">
-                  <span className="text-5xl font-bold text-zinc-950">GB</span>
-                </div>
-                <p className="text-zinc-400">Chau Gia Bao</p>
-              </div>
+            <div className="aspect-square max-w-md mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-accent-cyan/20 via-accent-violet/20 to-accent-emerald/20 border border-zinc-800">
+              <Image
+                src="/my_image.jpg"
+                alt="Chau Gia Bao"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </motion.div>
 
@@ -88,7 +90,7 @@ export function AboutSection() {
                     transition={{ delay: 0.3 + i * 0.1 }}
                     className={cn(
                       "px-3 py-1 rounded-full text-sm border",
-                      colorClasses.cyan,
+                      colorClasses.cyan
                     )}
                   >
                     {value}
@@ -112,7 +114,7 @@ export function AboutSection() {
                     transition={{ delay: 0.5 + i * 0.1 }}
                     className={cn(
                       "px-3 py-1 rounded-full text-sm border",
-                      colorClasses.violet,
+                      colorClasses.violet
                     )}
                   >
                     {interest}

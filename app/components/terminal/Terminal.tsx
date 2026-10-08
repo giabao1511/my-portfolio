@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type SubmitEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { cn } from "../../lib/utils";
@@ -11,8 +11,8 @@ import {
 } from "./terminal-commands";
 
 interface TerminalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
 }
 
 interface HistoryEntry {
@@ -25,18 +25,31 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const historyEndRef = useRef<HTMLDivElement>(null);
+  const isInitializedRef = useRef(false);
 
-  // Initialize with welcome message
+  // Initialize with welcome message and focus input
   useEffect(() => {
-    if (isOpen && history.length === 0) {
-      setHistory([{ input: "", outputs: getWelcomeMessage() }]);
+    if (isOpen) {
+      // Only initialize once when terminal opens
+      if (!isInitializedRef.current) {
+        setHistory([{ input: "", outputs: getWelcomeMessage() }]);
+        isInitializedRef.current = true;
+      }
+      // Focus with a small delay to ensure DOM is ready
+      const timer = setTimeout(() => inputRef.current?.focus(), 100);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  // Focus input when terminal opens
+  // Reset state when closed (deferred to avoid synchronous setState)
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+    if (!isOpen) {
+      const timer = setTimeout(() => {
+        setHistory([]);
+        setInput("");
+        isInitializedRef.current = false;
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
@@ -45,15 +58,7 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
     historyEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
 
-  // Reset state when closed
-  useEffect(() => {
-    if (!isOpen) {
-      setHistory([]);
-      setInput("");
-    }
-  }, [isOpen]);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
 
     const trimmedInput = input.trim();
@@ -80,6 +85,18 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
       return;
     }
 
+    // Check for download command
+    const downloadOutput = outputs.find((o) => o.type === "download");
+    if (downloadOutput) {
+      // Trigger file download
+      const link = document.createElement("a");
+      link.href = downloadOutput.text;
+      link.download = "";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     setHistory((prev) => [...prev, { input: trimmedInput, outputs }]);
     setInput("");
   };
@@ -99,7 +116,7 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-60"
             onClick={onClose}
           />
 

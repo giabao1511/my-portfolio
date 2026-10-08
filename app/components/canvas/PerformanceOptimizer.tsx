@@ -5,30 +5,26 @@ import { useState, useEffect } from "react";
 export type PerformanceTier = "high" | "low";
 
 export function usePerformanceTier(): PerformanceTier {
-  const [tier, setTier] = useState<PerformanceTier>("high");
+  const detectPerformance = (): PerformanceTier => {
+    // Check hardware concurrency
+    const cores = navigator.hardwareConcurrency || 4;
 
-  useEffect(() => {
-    const detectPerformance = (): PerformanceTier => {
-      // Check hardware concurrency
-      const cores = navigator.hardwareConcurrency || 4;
+    // Check device memory (Chrome only)
+    const memory =
+      (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 8;
 
-      // Check device memory (Chrome only)
-      const memory =
-        (navigator as Navigator & { deviceMemory?: number }).deviceMemory || 8;
+    // Check for mobile/tablet
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-      // Check for mobile/tablet
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    // Low tier: fewer cores, less memory, or mobile
+    if (cores <= 4 || memory <= 4 || isMobile) {
+      return "low";
+    }
 
-      // Low tier: fewer cores, less memory, or mobile
-      if (cores <= 4 || memory <= 4 || isMobile) {
-        return "low";
-      }
+    return "high";
+  };
 
-      return "high";
-    };
-
-    setTier(detectPerformance());
-  }, []);
+  const [tier] = useState<PerformanceTier>(detectPerformance);
 
   return tier;
 }

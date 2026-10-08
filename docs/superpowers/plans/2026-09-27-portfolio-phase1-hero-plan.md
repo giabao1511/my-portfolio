@@ -242,7 +242,7 @@ import { Code2, Zap, Package, Shield } from "lucide-react";
 export const STATS = [
   {
     id: "experience",
-    value: "4+",
+    value: "5+",
     unit: "Years",
     label: "Hands-on Experience",
     icon: Code2,

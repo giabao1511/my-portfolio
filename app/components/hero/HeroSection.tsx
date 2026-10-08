@@ -6,6 +6,7 @@ import { HeroTypography } from "./HeroTypography";
 import { MagneticButton } from "./MagneticButton";
 import { BentoStats } from "./BentoStats";
 import { ScrollIndicator } from "./ScrollIndicator";
+import { TerminalOpener } from "../terminal/TerminalOpener";
 import { PROFILE } from "../../lib/constants";
 
 // Dynamic import for 3D canvas (no SSR)
@@ -91,7 +92,7 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <MagneticButton variant="primary" href="#work">
+            <MagneticButton variant="primary" href="#experience">
               {PROFILE.ctas.primary}
             </MagneticButton>
             <MagneticButton variant="secondary" href="#contact">
@@ -107,6 +108,9 @@ export function HeroSection() {
         <div className="mt-8 md:mt-16">
           <ScrollIndicator />
         </div>
+
+        {/* Terminal Opener */}
+        <TerminalOpener className="mt-4" />
       </div>
     </section>
   );

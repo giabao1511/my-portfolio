@@ -20,26 +20,18 @@ const RecruiterModeContext = createContext<
 const STORAGE_KEY = "recruiter-mode";
 
 export function RecruiterModeProvider({ children }: { children: ReactNode }) {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  // Hydration-safe: read from localStorage only after mount
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "true") {
-      setIsEnabled(true);
+  const [isEnabled, setIsEnabled] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem(STORAGE_KEY) === "true";
     }
-    setMounted(true);
-  }, []);
+    return false;
+  });
+  const toggle = () => setIsEnabled((prev) => !prev);
 
   // Persist to localStorage
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem(STORAGE_KEY, String(isEnabled));
-    }
-  }, [isEnabled, mounted]);
-
-  const toggle = () => setIsEnabled((prev) => !prev);
+    localStorage.setItem(STORAGE_KEY, String(isEnabled));
+  }, [isEnabled]);
 
   return (
     <RecruiterModeContext.Provider value={{ isEnabled, toggle }}>

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "../../lib/utils";
 
 // Architecture node data
 const NODES = [

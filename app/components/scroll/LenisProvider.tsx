@@ -39,6 +39,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       touchMultiplier: 2,
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Lenis requires DOM initialization, not derived state
     setLenis(lenisInstance);
 
     // Sync with GSAP ScrollTrigger
@@ -58,7 +59,29 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     // Refresh ScrollTrigger after init
     ScrollTrigger.refresh();
 
+    // Handle anchor link navigation with smooth scroll
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a");
+      if (!anchor) return;
+
+      const href = anchor.getAttribute("href");
+      if (!href?.startsWith("#")) return;
+
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element && lenisInstance) {
+        lenisInstance.scrollTo(element as HTMLElement, {
+          duration: 1.2,
+          offset: 0,
+        });
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
     return () => {
+      document.removeEventListener("click", handleAnchorClick);
       gsap.ticker.remove((time) => {
         lenisInstance.raf(time * 1000);
       });
