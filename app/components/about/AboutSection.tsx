@@ -53,7 +53,7 @@ export function AboutSection() {
                 src="/my_image.jpg"
                 alt="Chau Gia Bao"
                 fill
-                className="object-cover"
+                className="object-cover rounded-2xl"
                 priority
               />
             </div>

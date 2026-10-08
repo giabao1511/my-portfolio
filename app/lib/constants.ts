@@ -84,7 +84,7 @@ export const EXPERIENCE = [
   {
     id: "mangoads",
     company: "MangoAds",
-    period: "Jan 2023 – Sep 2023",
+    period: "Jan 2022 – Sep 2023",
     role: "Frontend Developer",
     color: "violet" as const,
     achievements: [
@@ -95,7 +95,7 @@ export const EXPERIENCE = [
   {
     id: "keppelland",
     company: "Keppel Land",
-    period: "Sep 2022 – Dec 2022",
+    period: "Sep 2021 – Dec 2021",
     role: "Software Developer Intern",
     color: "cyan" as const,
     achievements: [

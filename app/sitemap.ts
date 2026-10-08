@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://giabao.dev";
+  const baseUrl = "https://my-portfolio-ashen-nu-70.vercel.app";
 
   return [
     {

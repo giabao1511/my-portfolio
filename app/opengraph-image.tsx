@@ -93,7 +93,7 @@ export default function OpenGraphImage() {
           letterSpacing: "0.05em",
         }}
       >
-        giabao.dev
+        my-portfolio-ashen-nu-70.vercel.app
       </div>
     </div>,
     {

@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://giabao.dev"),
+  metadataBase: new URL("https://my-portfolio-ashen-nu-70.vercel.app"),
   title: {
     default: "Chau Gia Bao | Software Engineer",
     template: "%s | Chau Gia Bao",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://giabao.dev",
+    url: "https://my-portfolio-ashen-nu-70.vercel.app",
     siteName: "Chau Gia Bao Portfolio",
     title: "Chau Gia Bao | Software Engineer",
     description:
